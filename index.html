@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bet Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div>
+        <h1>Bet Tracker</h1>
+        <p class="lede">Enter bets once. They save to GitHub so every computer shows the same list.</p>
+      </div>
+      <div class="top-actions">
+        <button type="button" id="refreshBtn">Refresh ESPN</button>
+        <button type="button" class="secondary" id="settingsBtn">Settings</button>
+      </div>
+    </header>
+
+    <section class="panel" id="settingsPanel" hidden>
+      <h2>GitHub save</h2>
+      <p class="hint">Paste a fine-grained PAT with Contents write on this repo. Stored only in this browser.</p>
+      <div class="grid-2">
+        <label>Owner<input id="ghOwner" value="ZacheryTaylor" /></label>
+        <label>Repo<input id="ghRepo" value="bet-tracker" /></label>
+        <label class="span-2">Token<input id="ghToken" type="password" autocomplete="off" placeholder="github_pat_..." /></label>
+      </div>
+      <button type="button" id="saveTokenBtn">Save token</button>
+      <p class="status" id="settingsStatus"></p>
+    </section>
+
+    <section class="filters">
+      <label>Sport<select id="filterSport"></select></label>
+      <label>Timeline<select id="filterTimeline">
+        <option value="all">All</option>
+        <option value="single">Single game</option>
+        <option value="season">Season long</option>
+      </select></label>
+      <label>Status<select id="filterStatus">
+        <option value="all">All</option>
+        <option value="open">Open</option>
+        <option value="hit">Hit</option>
+        <option value="miss">Miss</option>
+      </select></label>
+    </section>
+
+    <section class="panel">
+      <h2>New bet</h2>
+      <form id="betForm">
+        <label>Bet<input id="desc" required placeholder="Chiefs -3.5 vs Bills" /></label>
+        <label>Notes<input id="notes" placeholder="book, odds, units" /></label>
+        <div class="grid-4">
+          <label>Sport<select id="sport"></select></label>
+          <label>Timeline<select id="timeline">
+            <option value="single">Single game</option>
+            <option value="season">Season long</option>
+          </select></label>
+          <label>Metric<select id="metric">
+            <option value="manual">Manual / prop</option>
+            <option value="team-win">Team win (ESPN)</option>
+            <option value="spread">Cover spread (ESPN)</option>
+            <option value="total-over">Total over (ESPN)</option>
+            <option value="total-under">Total under (ESPN)</option>
+          </select></label>
+          <label>Event date<input id="date" type="date" /></label>
+          <label>Target<input id="target" type="number" step="any" value="1" /></label>
+          <label>Current<input id="current" type="number" step="any" value="0" /></label>
+          <label>Line<input id="line" type="number" step="any" placeholder="-3.5 or 47.5" /></label>
+          <label>Team to match<input id="teamQuery" placeholder="Kansas City Chiefs" /></label>
+        </div>
+        <button type="submit">Save bet</button>
+      </form>
+    </section>
+
+    <p class="status" id="statusLine">Loading bets…</p>
+    <div id="betList" class="list"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
