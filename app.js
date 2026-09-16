@@ -11,6 +11,7 @@ const SPORTS = [
 ];
 
 const DATA_PATH = "data/bets.json";
+const CONFIG_PATH = "config.js";
 const TOKEN_KEY = "bet-tracker-gh-token";
 const UNLOCK_KEY = "bet-tracker-unlocked";
 const LOCAL_KEY = "bet-tracker-bets";
@@ -20,14 +21,27 @@ const $ = (id) => document.getElementById(id);
 
 let bets = [];
 let fileSha = null;
+let configSha = null;
 let unlocked = sessionStorage.getItem(UNLOCK_KEY) === "1";
 
 function token() {
-  return localStorage.getItem(TOKEN_KEY) || ($("ghToken") && $("ghToken").value.trim()) || "";
+  return (window.BET_TRACKER_TOKEN || "").trim()
+    || localStorage.getItem(TOKEN_KEY)
+    || ($("ghToken") && $("ghToken").value.trim())
+    || "";
 }
 
-function apiUrl() {
-  return `https://api.github.com/repos/${OWNER}/${REPO}/contents/${DATA_PATH}`;
+function contentsUrl(path) {
+  return `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
+}
+
+function authHeaders(tok) {
+  const headers = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28"
+  };
+  if (tok) headers.Authorization = `Bearer ${tok}`;
+  return headers;
 }
 
 function sportLabel(id) {
@@ -125,15 +139,17 @@ function render() {
     if (status !== "all" && b.status !== status) return false;
     return true;
   });
-  $("statusLine").textContent = `${filtered.length} of ${bets.length} bets`;
+  if (!$("statusLine").textContent.startsWith("Saved") && !$("statusLine").textContent.startsWith("GitHub")) {
+    $("statusLine").textContent = `${filtered.length} of ${bets.length} bets`;
+  }
   $("betList").innerHTML = filtered.map((b) => {
     const p = pct(b);
     const k = b.kind || "player-prop";
     const record = k === "record" ? `${Number(b.current) || 0}-${Number(b.losses) || 0}` : `${Number(b.current)} / ${Number(b.target)}`;
     const update = unlocked && k !== "game" ? `<div class="update-row">
-        <input data-id="${b.id}" class="current-input" type="number" step="any" value="${Number(b.current)}" />
+        <input class="current-input" type="number" step="any" value="${Number(b.current)}" />
         <button type="button" class="ghost" data-act="set-current">Update current</button>
-        ${k === "record" ? `<input data-id="${b.id}" class="losses-input" type="number" step="1" value="${Number(b.losses) || 0}" />
+        ${k === "record" ? `<input class="losses-input" type="number" step="1" value="${Number(b.losses) || 0}" />
         <button type="button" class="ghost" data-act="set-losses">Update losses</button>` : ""}
       </div>` : "";
     const admin = unlocked ? `<div class="actions">
@@ -162,44 +178,54 @@ function render() {
   }).join("") || `<p class="meta">No bets yet.</p>`;
 }
 
-async function refreshShaAndLoad() {
-  const headers = { Accept: "application/vnd.github+json" };
-  const tok = token();
-  if (tok) headers.Authorization = `Bearer ${tok}`;
-  const res = await fetch(apiUrl() + `?ref=main&t=${Date.now()}`, { headers });
-  if (!res.ok) throw new Error(`GitHub read ${res.status}`);
+async function getFile(path) {
+  const res = await fetch(contentsUrl(path) + `?ref=main&t=${Date.now()}`, { headers: authHeaders(token()) });
+  if (!res.ok) throw new Error(`${path} ${res.status}`);
   const json = await res.json();
-  fileSha = json.sha;
-  const parsed = JSON.parse(fromBase64(json.content));
-  return Array.isArray(parsed) ? parsed : [];
+  return { sha: json.sha, text: fromBase64(json.content) };
+}
+
+async function putFile(path, text, sha, message) {
+  const res = await fetch(contentsUrl(path), {
+    method: "PUT",
+    headers: { ...authHeaders(token()), "Content-Type": "application/json" },
+    body: JSON.stringify({
+      message,
+      content: toBase64(text),
+      sha,
+      branch: "main"
+    })
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`${res.status} ${err.slice(0, 180)}`);
+  }
+  const json = await res.json();
+  return json.content.sha;
 }
 
 async function loadBets() {
   bets = readLocal();
   render();
-  $("statusLine").textContent = bets.length ? `${bets.length} bet(s) on this device` : "Loading…";
   try {
-    const remote = await refreshShaAndLoad();
-    if (remote.length) {
+    const file = await getFile(DATA_PATH);
+    fileSha = file.sha;
+    const remote = JSON.parse(file.text);
+    if (Array.isArray(remote) && remote.length) {
       bets = remote;
       writeLocal();
-      render();
-      $("statusLine").textContent = `${bets.length} bet(s) loaded from GitHub`;
     } else if (bets.length && token()) {
-      $("statusLine").textContent = "Repo is empty. Saving this device's bets to GitHub…";
       await persist();
-    } else {
-      render();
-      $("statusLine").textContent = bets.length
-        ? `${bets.length} bet(s) stored on this computer. Add a GitHub token to copy them to the repo.`
-        : "No bets yet.";
+      return;
     }
+    render();
+    $("statusLine").textContent = `${bets.length} bet(s) from GitHub`;
   } catch (e) {
     console.warn(e);
     render();
     $("statusLine").textContent = bets.length
-      ? `${bets.length} bet(s) on this device (GitHub not reached).`
-      : "No bets yet. GitHub read failed.";
+      ? `${bets.length} bet(s) on this device. GitHub not connected yet.`
+      : "No bets yet.";
   }
 }
 
@@ -208,51 +234,52 @@ async function persist() {
   render();
   const tok = token();
   if (!tok) {
-    $("statusLine").textContent = `${bets.length} bet(s) saved on this computer. They will stay after refresh. GitHub token still needed to show them on other devices.`;
-    return true;
+    $("statusLine").textContent = "Not on GitHub yet. Unlock and paste a Contents token so other computers can see this.";
+    return false;
   }
   try {
-    if (!fileSha) await refreshShaAndLoad();
-  } catch (e) {
-    $("statusLine").textContent = `Saved on this computer. GitHub SHA failed: ${e.message}`;
-    return false;
-  }
-  const payload = {
-    message: "Update bets",
-    content: toBase64(JSON.stringify(bets, null, 2) + "\n"),
-    sha: fileSha,
-    branch: "main"
-  };
-  const headers = {
-    Accept: "application/vnd.github+json",
-    Authorization: `Bearer ${tok}`,
-    "Content-Type": "application/json",
-    "X-GitHub-Api-Version": "2022-11-28"
-  };
-  let res = await fetch(apiUrl(), { method: "PUT", headers, body: JSON.stringify(payload) });
-  if (res.status === 409 || res.status === 422) {
-    const latest = await refreshShaAndLoad();
-    if (latest.length && bets.length && latest[0].id !== bets[0].id) {
-      /* keep local as source when we just edited */
+    if (!fileSha) {
+      const file = await getFile(DATA_PATH);
+      fileSha = file.sha;
     }
-    payload.sha = fileSha;
-    payload.content = toBase64(JSON.stringify(bets, null, 2) + "\n");
-    res = await fetch(apiUrl(), { method: "PUT", headers, body: JSON.stringify(payload) });
+    fileSha = await putFile(DATA_PATH, JSON.stringify(bets, null, 2) + "\n", fileSha, "Update bets");
+    $("statusLine").textContent = `Saved to GitHub (${bets.length} bet(s)). Any computer can refresh and see this.`;
+    return true;
+  } catch (e) {
+    try {
+      const file = await getFile(DATA_PATH);
+      fileSha = file.sha;
+      fileSha = await putFile(DATA_PATH, JSON.stringify(bets, null, 2) + "\n", fileSha, "Update bets");
+      $("statusLine").textContent = `Saved to GitHub (${bets.length} bet(s)).`;
+      return true;
+    } catch (e2) {
+      $("statusLine").textContent = "GitHub save failed: " + e2.message;
+      return false;
+    }
   }
-  if (!res.ok) {
-    const err = await res.text();
-    $("statusLine").textContent = `Saved on this computer, but GitHub save failed (${res.status}). ${err.slice(0, 140)}`;
-    return false;
+}
+
+async function publishToken(tok) {
+  window.BET_TRACKER_TOKEN = tok;
+  localStorage.setItem(TOKEN_KEY, tok);
+  const body = `window.BET_TRACKER_TOKEN = ${JSON.stringify(tok)};\n`;
+  try {
+    const file = await getFile(CONFIG_PATH);
+    configSha = file.sha;
+    await putFile(CONFIG_PATH, body, configSha, "Store tracker token for all computers");
+  } catch (e) {
+    console.warn("Could not write config.js", e);
   }
-  const json = await res.json();
-  fileSha = json.content.sha;
-  $("statusLine").textContent = `Saved on this computer and GitHub (${bets.length} bet(s)).`;
-  return true;
 }
 
 $("betForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!unlocked) return;
+  if (!token()) {
+    $("statusLine").textContent = "Connect a GitHub token first so the bet is saved for every computer.";
+    $("lockPanel").hidden = false;
+    return;
+  }
   const kind = $("kind").value;
   bets.unshift({
     id: crypto.randomUUID(),
@@ -311,24 +338,27 @@ $("betList").addEventListener("click", async (e) => {
 });
 $("kind").addEventListener("change", toggleKindFields);
 
-$("unlockBtn").addEventListener("click", () => {
-  if ($("passcode").value === PASSCODE) {
-    const tok = $("ghToken").value.trim();
-    if (tok) localStorage.setItem(TOKEN_KEY, tok);
-    setUnlocked(true);
-    $("lockStatus").textContent = token()
-      ? "Unlocked. Saves go to this computer and GitHub."
-      : "Unlocked. Saves stay on this computer after refresh. Token optional for other devices.";
-  } else {
+$("unlockBtn").addEventListener("click", async () => {
+  if ($("passcode").value !== PASSCODE) {
     $("lockStatus").textContent = "Wrong passcode.";
+    return;
   }
-});
-
-$("saveTokenBtn").addEventListener("click", () => {
-  const tok = $("ghToken").value.trim();
-  if (tok) localStorage.setItem(TOKEN_KEY, tok);
-  else localStorage.removeItem(TOKEN_KEY);
-  $("lockStatus").textContent = tok ? "Token saved in this browser." : "Token cleared.";
+  const tok = $("ghToken").value.trim() || token();
+  if (!tok) {
+    $("lockStatus").textContent = "Paste the GitHub token so saves work on every computer.";
+    return;
+  }
+  $("lockStatus").textContent = "Connecting to GitHub…";
+  await publishToken(tok);
+  try {
+    const file = await getFile(DATA_PATH);
+    fileSha = file.sha;
+    setUnlocked(true);
+    $("lockStatus").textContent = "Connected. Adding a bet now writes GitHub automatically.";
+    await loadBets();
+  } catch (e) {
+    $("lockStatus").textContent = "Token did not work: " + e.message;
+  }
 });
 
 $("lockNowBtn").addEventListener("click", () => setUnlocked(false));
@@ -494,6 +524,6 @@ $("refreshBtn").addEventListener("click", async () => {
 fillSports();
 $("date").value = new Date().toISOString().slice(0, 10);
 toggleKindFields();
-if (localStorage.getItem(TOKEN_KEY)) $("ghToken").placeholder = "Token already saved in this browser";
+if (token()) $("ghToken").placeholder = "Token already available";
 setUnlocked(unlocked);
 loadBets();
