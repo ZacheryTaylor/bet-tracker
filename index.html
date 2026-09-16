@@ -11,28 +11,37 @@
     <header class="top">
       <div>
         <h1>Bet Tracker</h1>
-        <p class="lede">Enter bets once. They save to GitHub so every computer shows the same list.</p>
+        <p class="lede">Player props and records. Viewable by anyone. Editing is locked.</p>
       </div>
       <div class="top-actions">
-        <button type="button" id="refreshBtn">Refresh ESPN</button>
-        <button type="button" class="secondary" id="settingsBtn">Settings</button>
+        <button type="button" id="refreshBtn" class="edit-only" hidden>Refresh ESPN</button>
+        <button type="button" class="secondary" id="lockBtn">Unlock</button>
       </div>
     </header>
 
-    <section class="panel" id="settingsPanel" hidden>
-      <h2>GitHub save</h2>
-      <p class="hint">Paste a fine-grained PAT with Contents write on this repo. Stored only in this browser.</p>
+    <section class="panel" id="lockPanel">
+      <h2>Unlock editing</h2>
+      <p class="hint">Viewing never needs a code. Add/edit needs the passcode, then a GitHub token so bets write to the repo.</p>
       <div class="grid-2">
-        <label>Owner<input id="ghOwner" value="ZacheryTaylor" /></label>
-        <label>Repo<input id="ghRepo" value="bet-tracker" /></label>
-        <label class="span-2">Token<input id="ghToken" type="password" autocomplete="off" placeholder="github_pat_..." /></label>
+        <label>Passcode<input id="passcode" type="password" autocomplete="off" /></label>
+        <label>GitHub token<input id="ghToken" type="password" autocomplete="off" placeholder="github_pat_..." /></label>
       </div>
-      <button type="button" id="saveTokenBtn">Save token</button>
-      <p class="status" id="settingsStatus"></p>
+      <div class="actions">
+        <button type="button" id="unlockBtn">Unlock</button>
+        <button type="button" class="secondary" id="saveTokenBtn">Save token</button>
+        <button type="button" class="secondary" id="lockNowBtn">Lock</button>
+      </div>
+      <p class="status" id="lockStatus"></p>
     </section>
 
     <section class="filters">
       <label>Sport<select id="filterSport"></select></label>
+      <label>Type<select id="filterType">
+        <option value="all">All</option>
+        <option value="player-prop">Player props</option>
+        <option value="record">Team records</option>
+        <option value="game">Game results</option>
+      </select></label>
       <label>Timeline<select id="filterTimeline">
         <option value="all">All</option>
         <option value="single">Single game</option>
@@ -46,31 +55,38 @@
       </select></label>
     </section>
 
-    <section class="panel">
-      <h2>New bet</h2>
+    <section class="panel edit-only" id="formPanel" hidden>
+      <h2>Add bet</h2>
       <form id="betForm">
-        <label>Bet<input id="desc" required placeholder="Chiefs -3.5 vs Bills" /></label>
-        <label>Notes<input id="notes" placeholder="book, odds, units" /></label>
         <div class="grid-4">
+          <label>Type<select id="kind">
+            <option value="player-prop">Player prop</option>
+            <option value="record">Team record (W-L)</option>
+            <option value="game">Game result</option>
+          </select></label>
           <label>Sport<select id="sport"></select></label>
           <label>Timeline<select id="timeline">
-            <option value="single">Single game</option>
             <option value="season">Season long</option>
-          </select></label>
-          <label>Metric<select id="metric">
-            <option value="manual">Manual / prop</option>
-            <option value="team-win">Team win (ESPN)</option>
-            <option value="spread">Cover spread (ESPN)</option>
-            <option value="total-over">Total over (ESPN)</option>
-            <option value="total-under">Total under (ESPN)</option>
+            <option value="single">Single game</option>
           </select></label>
           <label>Event date<input id="date" type="date" /></label>
+        </div>
+        <label>Bet / description<input id="desc" required placeholder="Mahomes 4,500 pass yards" /></label>
+        <div class="grid-4">
+          <label>Player or team<input id="subject" placeholder="Patrick Mahomes or Chiefs" /></label>
+          <label>Market / notes<input id="notes" placeholder="pass yds, over, +110" /></label>
           <label>Target<input id="target" type="number" step="any" value="1" /></label>
           <label>Current<input id="current" type="number" step="any" value="0" /></label>
-          <label>Line<input id="line" type="number" step="any" placeholder="-3.5 or 47.5" /></label>
-          <label>Team to match<input id="teamQuery" placeholder="Kansas City Chiefs" /></label>
+          <label class="game-only" hidden>Game metric<select id="metric">
+            <option value="team-win">Team win</option>
+            <option value="spread">Cover spread</option>
+            <option value="total-over">Total over</option>
+            <option value="total-under">Total under</option>
+          </select></label>
+          <label class="game-only" hidden>Line<input id="line" type="number" step="any" placeholder="-3.5 or 47.5" /></label>
+          <label class="record-only" hidden>Losses<input id="losses" type="number" step="1" value="0" /></label>
         </div>
-        <button type="submit">Save bet</button>
+        <button type="submit">Save bet to GitHub</button>
       </form>
     </section>
 

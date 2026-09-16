@@ -14,7 +14,7 @@ body {
   color: var(--text);
   line-height: 1.45;
 }
-.app { max-width: 960px; margin: 0 auto; padding: 28px 18px 64px; }
+.app { max-width: 980px; margin: 0 auto; padding: 28px 18px 64px; }
 h1 { margin: 0 0 6px; font-size: 1.75rem; }
 h2 { margin: 0 0 12px; font-size: 1.05rem; }
 .lede, .hint, .status { color: var(--muted); margin: 0 0 12px; }
@@ -27,7 +27,7 @@ h2 { margin: 0 0 12px; font-size: 1.05rem; }
   padding: 16px;
   margin-bottom: 14px;
 }
-.filters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.filters { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 label { display: grid; gap: 6px; font-size: 12px; font-weight: 600; color: var(--muted); }
 input, select, button { font: inherit; }
 input, select {
@@ -56,7 +56,6 @@ button:disabled { opacity: .55; }
 form { display: grid; gap: 12px; }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.span-2 { grid-column: span 2; }
 .list { display: grid; gap: 10px; }
 .card {
   background: var(--card);
@@ -67,7 +66,7 @@ form { display: grid; gap: 12px; }
 .card-top { display: flex; justify-content: space-between; gap: 12px; }
 .title { margin: 0 0 4px; font-weight: 650; }
 .meta { margin: 0; font-size: 13px; color: var(--muted); }
-.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; align-items: flex-start; }
 .chip {
   font-size: 11px;
   text-transform: uppercase;
@@ -77,13 +76,11 @@ form { display: grid; gap: 12px; }
   padding: 3px 8px;
 }
 .bar { height: 10px; background: #eceff3; border-radius: 999px; overflow: hidden; margin: 12px 0 6px; }
-.bar > span {
-  display: block;
-  height: 100%;
-  background: linear-gradient(90deg, #c0392b, #f1c40f, #27ae60);
-}
+.bar > span { display: block; height: 100%; }
 .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
 .actions button { padding: 6px 10px; font-size: 12px; }
+.update-row { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+.update-row input { max-width: 120px; }
 @media (max-width: 800px) {
   .grid-4, .filters, .grid-2 { grid-template-columns: 1fr 1fr; }
   .top { flex-direction: column; }

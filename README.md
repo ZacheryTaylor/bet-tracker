@@ -1,39 +1,26 @@
 # Bet Tracker
 
-Personal sports bet tracker hosted on GitHub Pages. Bets are stored in [`data/bets.json`](data/bets.json) so any computer that opens the site can see what you entered.
+Public, view-only bet list. Add/edit requires the site passcode **and** a GitHub token so saves write `data/bets.json`.
 
-**Live site (after Pages is on):** https://zacherytaylor.github.io/bet-tracker/
+Live: https://zacherytaylor.github.io/bet-tracker/
 
-## 1. Turn on GitHub Pages
+## Why bets were not saving
 
-1. Open https://github.com/ZacheryTaylor/bet-tracker/settings/pages
-2. Source: **Deploy from a branch**
-3. Branch: **main** / **/ (root)**
-4. Save. Wait a minute, then open the Pages URL.
+GitHub Pages cannot write the repo by itself. The browser must call the GitHub Contents API with a token. Without a token, bets only appeared until you refreshed.
 
-## 2. Save from any computer
+## One-time setup (so saves stick)
 
-Viewing bets needs no extra setup. **Adding or editing** from a browser writes `data/bets.json` through the GitHub API.
+1. Pages: repo **Settings → Pages → Deploy from a branch → main / root**.
+2. Create a [fine-grained PAT](https://github.com/settings/personal-access-tokens) for `ZacheryTaylor/bet-tracker` with **Contents: Read and write**.
+3. On the site, enter the passcode (default in `app.js`: `tracker`).
+4. Paste the token, click **Save token**. Do this once per browser you use to edit.
 
-1. Create a [fine-grained personal access token](https://github.com/settings/personal-access-tokens) with **Contents: Read and write** on `ZacheryTaylor/bet-tracker`.
-2. On the site, open **Settings**, paste the token, click **Save token**.
-3. The token stays in that browser only. Repeat Settings on each computer you use to enter bets.
+Change the passcode by editing `PASSCODE` in `app.js` and committing.
 
-The token is never committed to the repo.
+Do not share the GitHub token. The passcode only hides the edit UI; it is not real security.
 
-## 3. ESPN refresh
+## Bet types
 
-**Refresh ESPN** pulls unofficial scoreboard JSON:
-
-`https://site.api.espn.com/apis/site/v2/sports/{sport}/{league}/scoreboard`
-
-Use a team name, event date, and metric (team win, spread, or total). Player/season props stay manual.
-
-## Local files
-
-| File | Role |
-| --- | --- |
-| `index.html` | Page shell |
-| `styles.css` | Clean layout |
-| `app.js` | Bets, filters, ESPN, GitHub save |
-| `data/bets.json` | Shared bet list |
+- **Player prop** — name, market (yards, TDs, etc.), current vs target. Update current as the season/game progresses. ESPN does not reliably auto-fill player props.
+- **Team record** — wins / losses vs a win target. **Refresh ESPN** fills wins-losses from standings when the team name matches.
+- **Game result** — single-game win, spread, or total from the ESPN scoreboard.
