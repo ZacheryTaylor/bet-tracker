@@ -42,7 +42,7 @@
     "notes": "$534.89 → $1000.01",
     "status": "open",
     "espnAthleteId": "4431611",
-    "lastSync": "2026-09-16T18:12:36.334Z"
+    "lastSync": "2026-09-16T21:20:11.357Z"
   },
   {
     "id": "bills-wins",
@@ -58,7 +58,7 @@
     "payout": 100.01,
     "notes": "$58.34 → $100.01",
     "status": "open",
-    "lastSync": "2026-09-16T18:12:36.867Z"
+    "lastSync": "2026-09-16T21:20:11.583Z"
   },
   {
     "id": "lions-wins",
@@ -74,7 +74,7 @@
     "payout": 30.8,
     "notes": "$10 → $30.80",
     "status": "open",
-    "lastSync": "2026-09-16T18:12:36.882Z"
+    "lastSync": "2026-09-16T21:20:11.619Z"
   },
   {
     "id": "jaxson-dart-rush-yds",
@@ -91,7 +91,7 @@
     "notes": "$50 → $91.67",
     "status": "open",
     "espnAthleteId": "4689114",
-    "lastSync": "2026-09-16T18:12:36.929Z"
+    "lastSync": "2026-09-16T21:20:11.675Z"
   },
   {
     "id": "colston-loveland-rec-yds",
@@ -108,7 +108,7 @@
     "notes": "$10 → $18.33",
     "status": "open",
     "espnAthleteId": "4723086",
-    "lastSync": "2026-09-16T18:12:36.973Z"
+    "lastSync": "2026-09-16T21:20:11.719Z"
   },
   {
     "id": "parlay-shough-dart-brown-lemon",
@@ -130,7 +130,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4360689",
-        "lastSync": "2026-09-16T18:12:37.015Z"
+        "lastSync": "2026-09-16T21:20:11.761Z"
       },
       {
         "subject": "Jaxson Dart",
@@ -141,7 +141,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4689114",
-        "lastSync": "2026-09-16T18:12:37.039Z"
+        "lastSync": "2026-09-16T21:20:11.803Z"
       },
       {
         "subject": "Chase Brown",
@@ -152,7 +152,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4362238",
-        "lastSync": "2026-09-16T18:12:37.081Z"
+        "lastSync": "2026-09-16T21:20:11.863Z"
       },
       {
         "subject": "Makai Lemon",
@@ -163,7 +163,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4870795",
-        "lastSync": "2026-09-16T18:12:37.121Z"
+        "lastSync": "2026-09-16T21:20:11.922Z"
       }
     ]
   },
@@ -187,7 +187,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4038941",
-        "lastSync": "2026-09-16T18:12:37.168Z"
+        "lastSync": "2026-09-16T21:20:11.965Z"
       },
       {
         "subject": "Brock Bowers",
@@ -220,7 +220,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4259545",
-        "lastSync": "2026-09-16T18:12:37.503Z"
+        "lastSync": "2026-09-16T21:20:12.446Z"
       },
       {
         "subject": "DJ Moore",
@@ -231,7 +231,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "3915416",
-        "lastSync": "2026-09-16T18:12:37.541Z"
+        "lastSync": "2026-09-16T21:20:12.540Z"
       }
     ]
   },
@@ -255,7 +255,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4362238",
-        "lastSync": "2026-09-16T18:12:37.565Z"
+        "lastSync": "2026-09-16T21:20:12.582Z"
       },
       {
         "subject": "Ashton Jeanty",
@@ -266,7 +266,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4890973",
-        "lastSync": "2026-09-16T18:12:37.605Z"
+        "lastSync": "2026-09-16T21:20:12.640Z"
       },
       {
         "subject": "Jeremiyah Love",
@@ -277,7 +277,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4870808",
-        "lastSync": "2026-09-16T18:12:37.646Z"
+        "lastSync": "2026-09-16T21:20:12.701Z"
       },
       {
         "subject": "Kyren Williams",
@@ -288,7 +288,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4430737",
-        "lastSync": "2026-09-16T18:12:37.684Z"
+        "lastSync": "2026-09-16T21:20:12.743Z"
       }
     ]
   },
@@ -312,7 +312,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4431611",
-        "lastSync": "2026-09-16T18:12:37.707Z"
+        "lastSync": "2026-09-16T21:20:12.784Z"
       },
       {
         "subject": "Jonathan Taylor",
@@ -323,7 +323,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4242335",
-        "lastSync": "2026-09-16T18:12:37.747Z"
+        "lastSync": "2026-09-16T21:20:12.845Z"
       },
       {
         "subject": "DJ Moore",
@@ -334,7 +334,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "3915416",
-        "lastSync": "2026-09-16T18:12:37.770Z"
+        "lastSync": "2026-09-16T21:20:12.888Z"
       }
     ]
   },
@@ -358,7 +358,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4430737",
-        "lastSync": "2026-09-16T18:12:37.796Z"
+        "lastSync": "2026-09-16T21:20:12.929Z"
       },
       {
         "subject": "Chase Brown",
@@ -369,7 +369,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4362238",
-        "lastSync": "2026-09-16T18:12:37.819Z"
+        "lastSync": "2026-09-16T21:20:12.971Z"
       },
       {
         "subject": "DJ Moore",
@@ -380,7 +380,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "3915416",
-        "lastSync": "2026-09-16T18:12:37.842Z"
+        "lastSync": "2026-09-16T21:20:13.013Z"
       },
       {
         "subject": "Wan'Dale Robinson",
@@ -391,7 +391,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4569587",
-        "lastSync": "2026-09-16T18:12:37.880Z"
+        "lastSync": "2026-09-16T21:20:13.070Z"
       }
     ]
   },
@@ -415,7 +415,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4575131",
-        "lastSync": "2026-09-16T18:12:37.921Z"
+        "lastSync": "2026-09-16T21:20:13.125Z"
       },
       {
         "subject": "Kenneth Walker III",
@@ -435,7 +435,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4361579",
-        "lastSync": "2026-09-16T18:12:38.204Z"
+        "lastSync": "2026-09-16T21:20:13.396Z"
       }
     ]
   },
@@ -459,7 +459,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "3912547",
-        "lastSync": "2026-09-16T18:12:38.249Z"
+        "lastSync": "2026-09-16T21:20:13.437Z"
       },
       {
         "subject": "Matthew Stafford",
@@ -470,7 +470,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "12483",
-        "lastSync": "2026-09-16T18:12:38.287Z"
+        "lastSync": "2026-09-16T21:20:13.496Z"
       },
       {
         "subject": "Wan'Dale Robinson",
@@ -481,7 +481,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4569587",
-        "lastSync": "2026-09-16T18:12:38.317Z"
+        "lastSync": "2026-09-16T21:20:13.538Z"
       },
       {
         "subject": "Jalen Coker",
@@ -492,7 +492,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4695883",
-        "lastSync": "2026-09-16T18:12:38.358Z"
+        "lastSync": "2026-09-16T21:20:13.581Z"
       }
     ]
   },
@@ -516,7 +516,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4431611",
-        "lastSync": "2026-09-16T18:12:38.383Z"
+        "lastSync": "2026-09-16T21:20:13.623Z"
       },
       {
         "subject": "Bo Nix",
@@ -536,7 +536,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4361579",
-        "lastSync": "2026-09-16T18:12:38.622Z"
+        "lastSync": "2026-09-16T21:20:13.894Z"
       },
       {
         "subject": "Jayden Reed",
@@ -547,7 +547,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4362249",
-        "lastSync": "2026-09-16T18:12:38.662Z"
+        "lastSync": "2026-09-16T21:20:13.935Z"
       }
     ]
   },
@@ -571,7 +571,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4361579",
-        "lastSync": "2026-09-16T18:12:38.685Z"
+        "lastSync": "2026-09-16T21:20:13.976Z"
       },
       {
         "subject": "Jaxson Dart",
@@ -582,7 +582,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4689114",
-        "lastSync": "2026-09-16T18:12:38.708Z"
+        "lastSync": "2026-09-16T21:20:14.019Z"
       },
       {
         "subject": "Tyler Warren",
@@ -593,7 +593,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4431459",
-        "lastSync": "2026-09-16T18:12:38.779Z"
+        "lastSync": "2026-09-16T21:20:14.080Z"
       },
       {
         "subject": "Kyren Williams",
@@ -604,7 +604,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4430737",
-        "lastSync": "2026-09-16T18:12:38.803Z"
+        "lastSync": "2026-09-16T21:20:14.122Z"
       },
       {
         "subject": "Bo Nix",
@@ -624,7 +624,7 @@
         "timeline": "season",
         "kind": "player-prop",
         "espnAthleteId": "4362238",
-        "lastSync": "2026-09-16T18:12:38.947Z"
+        "lastSync": "2026-09-16T21:20:14.393Z"
       }
     ]
   }
