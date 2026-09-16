@@ -13,6 +13,7 @@ const SPORTS = [
 const DATA_PATH = "data/bets.json";
 const TOKEN_KEY = "bet-tracker-gh-token";
 const UNLOCK_KEY = "bet-tracker-unlocked";
+const LOCAL_KEY = "bet-tracker-bets";
 const OWNER = "ZacheryTaylor";
 const REPO = "bet-tracker";
 const $ = (id) => document.getElementById(id);
@@ -22,7 +23,7 @@ let fileSha = null;
 let unlocked = sessionStorage.getItem(UNLOCK_KEY) === "1";
 
 function token() {
-  return localStorage.getItem(TOKEN_KEY) || $("ghToken").value.trim();
+  return localStorage.getItem(TOKEN_KEY) || ($("ghToken") && $("ghToken").value.trim()) || "";
 }
 
 function apiUrl() {
@@ -77,6 +78,19 @@ function fromBase64(b64) {
   return new TextDecoder().decode(bytes);
 }
 
+function readLocal() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeLocal() {
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(bets));
+}
+
 function fillSports() {
   const opts = SPORTS.map((s) => `<option value="${s.id}">${s.label}</option>`).join("");
   $("sport").innerHTML = opts;
@@ -96,7 +110,6 @@ function toggleKindFields() {
   const kind = $("kind").value;
   document.querySelectorAll(".game-only").forEach((el) => { el.hidden = kind !== "game"; });
   document.querySelectorAll(".record-only").forEach((el) => { el.hidden = kind !== "record"; });
-  if (kind === "player-prop" || kind === "record") $("timeline").value = $("timeline").value || "season";
 }
 
 function render() {
@@ -157,39 +170,51 @@ async function refreshShaAndLoad() {
   if (!res.ok) throw new Error(`GitHub read ${res.status}`);
   const json = await res.json();
   fileSha = json.sha;
-  bets = JSON.parse(fromBase64(json.content));
-  if (!Array.isArray(bets)) bets = [];
+  const parsed = JSON.parse(fromBase64(json.content));
+  return Array.isArray(parsed) ? parsed : [];
 }
 
 async function loadBets() {
-  $("statusLine").textContent = "Loading shared bets…";
+  bets = readLocal();
+  render();
+  $("statusLine").textContent = bets.length ? `${bets.length} bet(s) on this device` : "Loading…";
   try {
-    await refreshShaAndLoad();
-    render();
+    const remote = await refreshShaAndLoad();
+    if (remote.length) {
+      bets = remote;
+      writeLocal();
+      render();
+      $("statusLine").textContent = `${bets.length} bet(s) loaded from GitHub`;
+    } else if (bets.length && token()) {
+      $("statusLine").textContent = "Repo is empty. Saving this device's bets to GitHub…";
+      await persist();
+    } else {
+      render();
+      $("statusLine").textContent = bets.length
+        ? `${bets.length} bet(s) stored on this computer. Add a GitHub token to copy them to the repo.`
+        : "No bets yet.";
+    }
   } catch (e) {
     console.warn(e);
-    try {
-      const res = await fetch(`${DATA_PATH}?t=${Date.now()}`);
-      bets = res.ok ? await res.json() : [];
-    } catch {
-      bets = [];
-    }
     render();
-    $("statusLine").textContent = "Loaded static copy. GitHub API read failed — saves will fail until a token works.";
+    $("statusLine").textContent = bets.length
+      ? `${bets.length} bet(s) on this device (GitHub not reached).`
+      : "No bets yet. GitHub read failed.";
   }
 }
 
 async function persist() {
+  writeLocal();
+  render();
   const tok = token();
   if (!tok) {
-    render();
-    $("statusLine").textContent = "Not saved to GitHub. Unlock and save a Contents write token first.";
-    return false;
+    $("statusLine").textContent = `${bets.length} bet(s) saved on this computer. They will stay after refresh. GitHub token still needed to show them on other devices.`;
+    return true;
   }
   try {
     if (!fileSha) await refreshShaAndLoad();
   } catch (e) {
-    $("statusLine").textContent = "Could not read file SHA: " + e.message;
+    $("statusLine").textContent = `Saved on this computer. GitHub SHA failed: ${e.message}`;
     return false;
   }
   const payload = {
@@ -198,48 +223,30 @@ async function persist() {
     sha: fileSha,
     branch: "main"
   };
-  const res = await fetch(apiUrl(), {
-    method: "PUT",
-    headers: {
-      Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${tok}`,
-      "Content-Type": "application/json",
-      "X-GitHub-Api-Version": "2022-11-28"
-    },
-    body: JSON.stringify(payload)
-  });
+  const headers = {
+    Accept: "application/vnd.github+json",
+    Authorization: `Bearer ${tok}`,
+    "Content-Type": "application/json",
+    "X-GitHub-Api-Version": "2022-11-28"
+  };
+  let res = await fetch(apiUrl(), { method: "PUT", headers, body: JSON.stringify(payload) });
   if (res.status === 409 || res.status === 422) {
-    await refreshShaAndLoad();
+    const latest = await refreshShaAndLoad();
+    if (latest.length && bets.length && latest[0].id !== bets[0].id) {
+      /* keep local as source when we just edited */
+    }
     payload.sha = fileSha;
     payload.content = toBase64(JSON.stringify(bets, null, 2) + "\n");
-    const retry = await fetch(apiUrl(), {
-      method: "PUT",
-      headers: {
-        Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${tok}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
-    if (!retry.ok) {
-      $("statusLine").textContent = "Save failed after retry: " + retry.status;
-      return false;
-    }
-    const json = await retry.json();
-    fileSha = json.content.sha;
-    $("statusLine").textContent = "Saved to GitHub.";
-    render();
-    return true;
+    res = await fetch(apiUrl(), { method: "PUT", headers, body: JSON.stringify(payload) });
   }
   if (!res.ok) {
     const err = await res.text();
-    $("statusLine").textContent = "Save failed: " + res.status + " — check token Contents write on bet-tracker. " + err.slice(0, 160);
+    $("statusLine").textContent = `Saved on this computer, but GitHub save failed (${res.status}). ${err.slice(0, 140)}`;
     return false;
   }
   const json = await res.json();
   fileSha = json.content.sha;
-  $("statusLine").textContent = "Saved to GitHub. Anyone can see this after a refresh.";
-  render();
+  $("statusLine").textContent = `Saved on this computer and GitHub (${bets.length} bet(s)).`;
   return true;
 }
 
@@ -287,12 +294,10 @@ $("betList").addEventListener("click", async (e) => {
   const act = btn.dataset.act;
   if (act === "delete") bets = bets.filter((b) => b.id !== id);
   else if (act === "set-current") {
-    const input = card.querySelector(".current-input");
-    bet.current = Number(input.value);
+    bet.current = Number(card.querySelector(".current-input").value);
     if (pct(bet) >= 100 && bet.status === "open") bet.status = "hit";
   } else if (act === "set-losses") {
-    const input = card.querySelector(".losses-input");
-    bet.losses = Number(input.value);
+    bet.losses = Number(card.querySelector(".losses-input").value);
   } else {
     if (act === "hit") { bet.status = "hit"; bet.current = bet.target; }
     if (act === "miss") bet.status = "miss";
@@ -311,8 +316,9 @@ $("unlockBtn").addEventListener("click", () => {
     const tok = $("ghToken").value.trim();
     if (tok) localStorage.setItem(TOKEN_KEY, tok);
     setUnlocked(true);
-    $("lockStatus").textContent = token() ? "Unlocked. Saves will write data/bets.json." : "Unlocked, but saves will not reach GitHub until you save a token.";
-    loadBets();
+    $("lockStatus").textContent = token()
+      ? "Unlocked. Saves go to this computer and GitHub."
+      : "Unlocked. Saves stay on this computer after refresh. Token optional for other devices.";
   } else {
     $("lockStatus").textContent = "Wrong passcode.";
   }
@@ -482,7 +488,7 @@ $("refreshBtn").addEventListener("click", async () => {
   }
   $("refreshBtn").disabled = false;
   await persist();
-  $("statusLine").textContent = `ESPN done. Updated ${updated} record/game bet(s)${errors ? `, ${errors} error(s)` : ""}. Player props stay manual.` ;
+  $("statusLine").textContent = `ESPN done. Updated ${updated} record/game bet(s)${errors ? `, ${errors} error(s)` : ""}. Player props stay manual.`;
 });
 
 fillSports();
