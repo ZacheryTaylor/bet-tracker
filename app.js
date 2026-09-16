@@ -33,6 +33,18 @@ const STAT_NAMES = {
 const $ = (id) => document.getElementById(id);
 let bets = [];
 
+function normalizeBets(data) {
+  if (Array.isArray(data)) return data.filter(Boolean);
+  if (!data || typeof data !== "object") return [];
+  if (data.kind) return [data];
+  const out = [];
+  for (const key of ["playerProp", "teamRecord", "game"]) {
+    if (data[key] && typeof data[key] === "object") out.push(data[key]);
+  }
+  if (out.length) return out;
+  return Object.values(data).filter((v) => v && typeof v === "object" && v.kind);
+}
+
 function sportLabel(id) {
   return (SPORTS.find((s) => s.id === id) || {}).label || id;
 }
@@ -78,7 +90,7 @@ function render() {
   const timeline = $("filterTimeline").value;
   const status = $("filterStatus").value;
   const filtered = bets.filter((b) => {
-    if (b.template) return false;
+    if (!b || b.template) return false;
     const k = b.kind || "player-prop";
     if (sport !== "all" && b.sport !== sport) return false;
     if (kind !== "all" && k !== kind) return false;
@@ -86,6 +98,7 @@ function render() {
     if (status !== "all" && b.status !== status) return false;
     return true;
   });
+  $("statusLine").textContent = `${filtered.length} bet(s)`;
   $("betList").innerHTML = filtered.map((b) => {
     const p = pct(b);
     const k = b.kind || "player-prop";
@@ -95,7 +108,7 @@ function render() {
     return `<article class="card">
       <div class="card-top">
         <div>
-          <p class="title">${escapeHtml(b.desc)}</p>
+          <p class="title">${escapeHtml(b.desc || "Untitled bet")}</p>
           <p class="meta">${escapeHtml(b.subject || "")}${b.stat ? " · " + escapeHtml(b.stat) : ""}${b.date ? " · " + b.date : ""}${b.lastSync ? " · synced " + b.lastSync : ""}</p>
         </div>
         <div class="chips">
@@ -108,7 +121,7 @@ function render() {
       <div class="bar"><span style="width:${p}%;background:${solidColor(p)}"></span></div>
       <p class="meta">${p.toFixed(0)}% · ${record}${k === "record" ? " · target " + Number(b.target) + " wins" : ""}</p>
     </article>`;
-  }).join("") || `<p class="meta">No bets in data/bets.json yet. Paste a template and commit.</p>`;
+  }).join("") || `<p class="meta">No bets found. data/bets.json should look like [ { ...bet } ].</p>`;
 }
 
 async function loadBets() {
@@ -120,9 +133,7 @@ async function loadBets() {
     try {
       const res = await fetch(url);
       if (!res.ok) continue;
-      const data = await res.json();
-      bets = Array.isArray(data) ? data : [];
-      $("statusLine").textContent = `${bets.filter((b) => !b.template).length} bet(s)`;
+      bets = normalizeBets(await res.json());
       render();
       return;
     } catch (e) {
@@ -138,11 +149,11 @@ async function loadTemplates() {
   try {
     const res = await fetch(`data/templates.json?t=${Date.now()}`);
     const t = await res.json();
-    $("tplPlayer").textContent = JSON.stringify(t.playerProp, null, 2);
-    $("tplTeam").textContent = JSON.stringify(t.teamRecord, null, 2);
+    if ($("tplPlayer")) $("tplPlayer").textContent = JSON.stringify([t.playerProp], null, 2);
+    if ($("tplTeam")) $("tplTeam").textContent = JSON.stringify([t.teamRecord], null, 2);
   } catch {
-    $("tplPlayer").textContent = "See data/templates.json";
-    $("tplTeam").textContent = "See data/templates.json";
+    if ($("tplPlayer")) $("tplPlayer").textContent = "See data/templates.json";
+    if ($("tplTeam")) $("tplTeam").textContent = "See data/templates.json";
   }
 }
 
@@ -169,19 +180,14 @@ function extractStat(data, stat) {
 
 async function resolveAthleteId(bet) {
   if (bet.espnAthleteId) return bet.espnAthleteId;
-  const sport = SPORTS.find((s) => s.id === bet.sport);
-  if (!sport || !sport.athlete) return null;
   const q = encodeURIComponent(bet.subject || "");
-  const url = `https://site.web.api.espn.com/apis/common/v3/search?query=${q}&limit=8`;
-  const res = await fetch(url);
+  const res = await fetch(`https://site.web.api.espn.com/apis/common/v3/search?query=${q}&limit=8`);
   if (!res.ok) return null;
   const data = await res.json();
   let id = null;
   walkValues(data, (obj) => {
     if (id) return;
-    if (obj.id && (obj.uid || obj.fullName || obj.displayName) && norm(obj.displayName || obj.fullName).includes(norm(bet.subject))) {
-      id = String(obj.id);
-    }
+    if (obj.id && norm(obj.displayName || obj.fullName).includes(norm(bet.subject))) id = String(obj.id);
   });
   return id;
 }
@@ -199,8 +205,7 @@ async function refreshPlayer(bet) {
     try {
       const res = await fetch(url);
       if (!res.ok) continue;
-      const data = await res.json();
-      const value = extractStat(data, bet.stat);
+      const value = extractStat(await res.json(), bet.stat);
       if (value == null) continue;
       bet.current = value;
       bet.espnAthleteId = id;
@@ -247,9 +252,8 @@ async function refreshRecord(bet) {
   if (!sport?.standings) return false;
   const res = await fetch(`https://site.api.espn.com/apis/v2/sports/${sport.standings}/standings`);
   if (!res.ok) return false;
-  const data = await res.json();
   const q = norm(bet.subject);
-  const entry = walkTeams(data).find((en) => {
+  const entry = walkTeams(await res.json()).find((en) => {
     const names = [en.team?.displayName, en.team?.shortDisplayName, en.team?.abbreviation, en.team?.name, en.team?.nickname, en.team?.location];
     return names.some((n) => q && (norm(n).includes(q) || q.includes(norm(n))));
   });
@@ -266,16 +270,13 @@ async function refreshGame(bet) {
   const sport = SPORTS.find((s) => s.id === bet.sport);
   if (!sport?.path) return false;
   const dates = (bet.date || "").replaceAll("-", "");
-  const q = dates ? `?dates=${dates}` : "";
-  const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${sport.path}/scoreboard${q}`);
+  const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${sport.path}/scoreboard${dates ? "?dates=" + dates : ""}`);
   if (!res.ok) return false;
-  const data = await res.json();
-  const event = (data.events || []).find((ev) => findCompetitor(ev, bet.subject));
+  const event = ((await res.json()).events || []).find((ev) => findCompetitor(ev, bet.subject));
   if (!event) return false;
   const comp = event.competitions?.[0];
   const me = findCompetitor(event, bet.subject);
-  const scores = (comp.competitors || []).map((c) => Number(c.score) || 0);
-  const total = scores.reduce((a, b) => a + b, 0);
+  const total = (comp.competitors || []).reduce((a, c) => a + (Number(c.score) || 0), 0);
   const finished = ["STATUS_FINAL", "STATUS_FULL_TIME"].includes(comp.status?.type?.name);
   const myScore = me ? Number(me.score) || 0 : 0;
   const opp = me ? comp.competitors.find((c) => c.id !== me.id) : null;
@@ -286,18 +287,16 @@ async function refreshGame(bet) {
     if (finished) bet.status = bet.current >= 1 ? "hit" : "miss";
   } else if (bet.metric === "spread" && bet.line != null && me) {
     bet.target = 1;
-    const cover = myScore + Number(bet.line) > oppScore;
-    bet.current = cover ? 1 : 0;
-    if (finished) bet.status = cover ? "hit" : "miss";
+    bet.current = myScore + Number(bet.line) > oppScore ? 1 : 0;
+    if (finished) bet.status = bet.current >= 1 ? "hit" : "miss";
   } else if (bet.metric === "total-over" && bet.line != null) {
     bet.target = Number(bet.line);
     bet.current = total;
     if (finished) bet.status = total > Number(bet.line) ? "hit" : "miss";
   } else if (bet.metric === "total-under" && bet.line != null) {
     bet.target = 1;
-    const under = total < Number(bet.line);
-    bet.current = finished ? (under ? 1 : 0) : Math.max(0, 1 - total / Number(bet.line));
-    if (finished) bet.status = under ? "hit" : "miss";
+    bet.current = finished && total < Number(bet.line) ? 1 : 0;
+    if (finished) bet.status = total < Number(bet.line) ? "hit" : "miss";
   }
   bet.lastSync = new Date().toLocaleString();
   return true;
@@ -308,7 +307,7 @@ $("refreshBtn").addEventListener("click", async () => {
   $("statusLine").textContent = "Refreshing ESPN…";
   let n = 0;
   for (const bet of bets) {
-    if (bet.template) continue;
+    if (!bet || bet.template) continue;
     try {
       const ok = bet.kind === "record" ? await refreshRecord(bet)
         : bet.kind === "game" ? await refreshGame(bet)
@@ -320,7 +319,7 @@ $("refreshBtn").addEventListener("click", async () => {
   }
   render();
   $("refreshBtn").disabled = false;
-  $("statusLine").textContent = `Updated ${n} bet(s) from ESPN. Repo file updates on the hourly GitHub Action.` ;
+  $("statusLine").textContent = `Updated ${n} bet(s) from ESPN.`;
 });
 
 ["filterSport", "filterType", "filterTimeline", "filterStatus"].forEach((id) => {
