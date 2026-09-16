@@ -6,6 +6,7 @@ const SPORTS = [
   { id: "nhl", label: "NHL" },
   { id: "other", label: "Other" }
 ];
+
 const $ = (id) => document.getElementById(id);
 let bets = [];
 
@@ -19,7 +20,7 @@ function sportLabel(id) {
   return (SPORTS.find((s) => s.id === id) || {}).label || id;
 }
 function kindLabel(kind) {
-  return { record: "Team record", game: "Game", parlay: "Parlay", award: "Award" }[kind] || "Player prop";
+  return { record: "Team record", parlay: "Parlay", award: "Award", game: "Game" }[kind] || "Player prop";
 }
 function pct(bet) {
   const t = Number(bet.target) || 1;
@@ -51,10 +52,12 @@ function norm(s) {
 function bar(p, small) {
   return `<div class="bar${small ? " small" : ""}"><span style="width:${p}%;background:${solidColor(p)}"></span></div>`;
 }
+
 function fillSports() {
   $("filterSport").innerHTML = `<option value="all">All sports</option>` +
     SPORTS.map((s) => `<option value="${s.id}">${s.label}</option>`).join("");
 }
+
 function render() {
   const sport = $("filterSport").value;
   const kind = $("filterType").value;
@@ -136,7 +139,7 @@ async function refreshRecord(bet) {
   if (!res.ok) return false;
   const q = norm(bet.subject);
   const entry = walkTeams(await res.json()).find((en) => {
-    const names = [en.team?.displayName, en.team?.shortDisplayName, en.team?.abbreviation, en.team?.name, en.team?.nickname, en.team?.location];
+    const names = [en.team?.displayName, en.team?.shortDisplayName, en.team?.abbreviation, en.team?.name, en.team?.nickname];
     return names.some((n) => q && (norm(n).includes(q) || q.includes(norm(n))));
   });
   if (!entry) return false;
@@ -145,31 +148,31 @@ async function refreshRecord(bet) {
   const losses = Number((stats.find((s) => s.name === "losses") || {}).value);
   if (!Number.isNaN(wins)) bet.current = wins;
   if (!Number.isNaN(losses)) bet.losses = losses;
-  bet.lastSync = new Date().toLocaleString();
   if ((bet.status || "open") === "open" && pct(bet) >= 100) bet.status = "hit";
   return true;
 }
 
 async function refreshOne(bet) {
   if (!bet) return false;
-  if (bet.kind === "record") return refreshRecord(bet);
   if (bet.kind === "award") return false;
+  if (bet.kind === "record") return refreshRecord(bet);
   if (bet.kind === "parlay") {
     let any = false;
     for (const leg of bet.legs || []) {
       leg.sport = leg.sport || bet.sport || "nfl";
-      if (window.EspnPlayer && await window.EspnPlayer.refreshPlayer(leg)) any = true;
+      if (await window.EspnPlayer.refreshPlayer(leg)) any = true;
     }
-    if (any) {
-      const legs = bet.legs || [];
-      if (legs.length && legs.every((l) => pct(l) >= 100)) bet.status = "hit";
-    }
+    if (any && (bet.legs || []).every((l) => pct(l) >= 100)) bet.status = "hit";
     return any;
   }
-  return !!(window.EspnPlayer && await window.EspnPlayer.refreshPlayer(bet));
+  return window.EspnPlayer.refreshPlayer(bet);
 }
 
 $("refreshBtn").addEventListener("click", async () => {
+  if (!window.EspnPlayer) {
+    $("statusLine").textContent = "ESPN helper failed to load (scripts/espn-player.js).";
+    return;
+  }
   $("refreshBtn").disabled = true;
   $("statusLine").textContent = "Refreshing ESPN…";
   let n = 0;
@@ -184,11 +187,13 @@ $("refreshBtn").addEventListener("click", async () => {
   }
   render();
   $("refreshBtn").disabled = false;
-  $("statusLine").textContent = `Updated ${n} bet(s).` + (missed.length ? ` Missed: ${missed.slice(0, 8).join("; ")}` : "");
+  $("statusLine").textContent = `Updated ${n} bet(s).` +
+    (missed.length ? ` Still empty: ${missed.slice(0, 8).join("; ")}` : "");
 });
 
 ["filterSport", "filterType", "filterTimeline", "filterStatus"].forEach((id) => {
   $(id).addEventListener("change", render);
 });
+
 fillSports();
 loadBets();
