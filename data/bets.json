@@ -1,15 +1,271 @@
 [
   {
-    "id": "mahomes-pass-yds-2026",
+    "id": "caleb-williams-mvp",
+    "kind": "award",
+    "desc": "Caleb Williams MVP",
+    "subject": "Caleb Williams",
+    "sport": "nfl",
+    "timeline": "season",
+    "target": 1,
+    "current": 0,
+    "stake": 5,
+    "payout": 75,
+    "notes": "$5 → $75",
+    "status": "open"
+  },
+  {
+    "id": "darian-mensah-1st-pick",
+    "kind": "award",
+    "desc": "Darian Mensah 1st Pick",
+    "subject": "Darian Mensah",
+    "sport": "ncaaf",
+    "timeline": "season",
+    "target": 1,
+    "current": 0,
+    "stake": 25,
+    "payout": 500,
+    "notes": "$25 → $500",
+    "status": "open"
+  },
+  {
+    "id": "caleb-williams-pass-yds",
     "kind": "player-prop",
-    "desc": "Mahomes 4500+ passing yards",
-    "subject": "Patrick Mahomes",
-    "espnAthleteId": "3139477",
+    "desc": "Caleb Williams Pass Yards",
+    "subject": "Caleb Williams",
     "sport": "nfl",
     "timeline": "season",
     "stat": "passingYards",
-    "target": 4500,
+    "target": 3651,
     "current": 0,
+    "stake": 534.89,
+    "payout": 1000.01,
+    "notes": "$534.89 → $1000.01",
     "status": "open"
+  },
+  {
+    "id": "bills-wins",
+    "kind": "record",
+    "desc": "Bills Wins",
+    "subject": "Buffalo Bills",
+    "sport": "nfl",
+    "timeline": "season",
+    "target": 11,
+    "current": 0,
+    "losses": 0,
+    "stake": 58.34,
+    "payout": 100.01,
+    "notes": "$58.34 → $100.01",
+    "status": "open"
+  },
+  {
+    "id": "lions-wins",
+    "kind": "record",
+    "desc": "Lions Wins",
+    "subject": "Detroit Lions",
+    "sport": "nfl",
+    "timeline": "season",
+    "target": 11,
+    "current": 0,
+    "losses": 0,
+    "stake": 10,
+    "payout": 30.80,
+    "notes": "$10 → $30.80",
+    "status": "open"
+  },
+  {
+    "id": "jaxson-dart-rush-yds",
+    "kind": "player-prop",
+    "desc": "Jaxson Dart Rush Yards",
+    "subject": "Jaxson Dart",
+    "sport": "nfl",
+    "timeline": "season",
+    "stat": "rushingYards",
+    "target": 451,
+    "current": 0,
+    "stake": 50,
+    "payout": 91.67,
+    "notes": "$50 → $91.67",
+    "status": "open"
+  },
+  {
+    "id": "colston-loveland-rec-yds",
+    "kind": "player-prop",
+    "desc": "Colston Loveland Rec Yards",
+    "subject": "Colston Loveland",
+    "sport": "nfl",
+    "timeline": "season",
+    "stat": "receivingYards",
+    "target": 751,
+    "current": 0,
+    "stake": 10,
+    "payout": 18.33,
+    "notes": "$10 → $18.33",
+    "status": "open"
+  },
+  {
+    "id": "parlay-shough-dart-brown-lemon",
+    "kind": "parlay",
+    "desc": "Parlay",
+    "sport": "nfl",
+    "timeline": "season",
+    "stake": 20.52,
+    "payout": 246.17,
+    "notes": "$20.52 → $246.17",
+    "status": "open",
+    "legs": [
+      { "subject": "Tyler Shough", "stat": "passingTouchdowns", "target": 19, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Jaxson Dart", "stat": "rushingYards", "target": 451, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Chase Brown", "stat": "rushingYards", "target": 851, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Makai Lemon", "stat": "receivingYards", "target": 651, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" }
+    ]
+  },
+  {
+    "id": "parlay-herbert-bowers",
+    "kind": "parlay",
+    "desc": "Parlay",
+    "sport": "nfl",
+    "timeline": "season",
+    "stake": 25,
+    "payout": 87.38,
+    "notes": "$25 → $87.38",
+    "status": "open",
+    "legs": [
+      { "subject": "Justin Herbert", "stat": "passingYards", "target": 3651, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Brock Bowers", "stat": "receivingYards", "target": 876, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" }
+    ]
+  },
+  {
+    "id": "parlay-swift-moore",
+    "kind": "parlay",
+    "desc": "Parlay",
+    "sport": "nfl",
+    "timeline": "season",
+    "stake": 10,
+    "payout": 37.27,
+    "notes": "$10 → $37.27",
+    "status": "open",
+    "legs": [
+      { "subject": "D'Andre Swift", "stat": "rushingYards", "target": 751, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "DJ Moore", "stat": "receivingYards", "target": 751, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" }
+    ]
+  },
+  {
+    "id": "parlay-brown-jeanty-love-kyren",
+    "kind": "parlay",
+    "desc": "Parlay",
+    "sport": "nfl",
+    "timeline": "season",
+    "stake": 10,
+    "payout": 112.65,
+    "notes": "$10 → $112.65",
+    "status": "open",
+    "legs": [
+      { "subject": "Chase Brown", "stat": "rushingYards", "target": 851, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Ashton Jeanty", "stat": "rushingTouchdowns", "target": 8, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Jeremiyah Love", "stat": "rushingTouchdowns", "target": 6, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Kyren Williams", "stat": "rushingYards", "target": 976, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" }
+    ]
+  },
+  {
+    "id": "parlay-caleb-taylor-moore",
+    "kind": "parlay",
+    "desc": "Parlay",
+    "sport": "nfl",
+    "timeline": "season",
+    "stake": 50,
+    "payout": 333.64,
+    "notes": "$50 → $333.64",
+    "status": "open",
+    "legs": [
+      { "subject": "Caleb Williams", "stat": "passingYards", "target": 3651, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Jonathan Taylor", "stat": "rushingYards", "target": 1251, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "DJ Moore", "stat": "receivingYards", "target": 801, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" }
+    ]
+  },
+  {
+    "id": "parlay-kyren-brown-moore-wandale",
+    "kind": "parlay",
+    "desc": "Parlay",
+    "sport": "nfl",
+    "timeline": "season",
+    "stake": 10,
+    "payout": 164.32,
+    "notes": "$10 → $164.32",
+    "status": "open",
+    "legs": [
+      { "subject": "Kyren Williams", "stat": "rushingYards", "target": 976, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Chase Brown", "stat": "rushingYards", "target": 851, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "DJ Moore", "stat": "receivingYards", "target": 801, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Wan'Dale Robinson", "stat": "receivingYards", "target": 701, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" }
+    ]
+  },
+  {
+    "id": "parlay-jcm-walker-javonte",
+    "kind": "parlay",
+    "desc": "Parlay",
+    "sport": "nfl",
+    "timeline": "season",
+    "stake": 10,
+    "payout": 68.55,
+    "notes": "$10 → $68.55",
+    "status": "open",
+    "legs": [
+      { "subject": "Jacory Croskey-Merritt", "stat": "rushingYards", "target": 601, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Kenneth Walker III", "stat": "rushingYards", "target": 926, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Javonte Williams", "stat": "rushingYards", "target": 951, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" }
+    ]
+  },
+  {
+    "id": "parlay-darnold-stafford-wandale-coker",
+    "kind": "parlay",
+    "desc": "Parlay",
+    "sport": "nfl",
+    "timeline": "season",
+    "stake": 20,
+    "payout": 251.69,
+    "notes": "$20 → $251.69",
+    "status": "open",
+    "legs": [
+      { "subject": "Sam Darnold", "stat": "passingYards", "target": 3651, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Matthew Stafford", "stat": "passingYards", "target": 3851, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Wan'Dale Robinson", "stat": "receivingYards", "target": 701, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Jalen Coker", "stat": "receivingYards", "target": 601, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" }
+    ]
+  },
+  {
+    "id": "parlay-caleb-nix-javonte-reed",
+    "kind": "parlay",
+    "desc": "Parlay",
+    "sport": "nfl",
+    "timeline": "season",
+    "stake": 10,
+    "payout": 131.24,
+    "notes": "$10 → $131.24",
+    "status": "open",
+    "legs": [
+      { "subject": "Caleb Williams", "stat": "passingYards", "target": 3651, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Bo Nix", "stat": "passingTouchdowns", "target": 25, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Javonte Williams", "stat": "rushingYards", "target": 951, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Jayden Reed", "stat": "receivingYards", "target": 651, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" }
+    ]
+  },
+  {
+    "id": "parlay-six-leg-javonte-dart-warren-kyren-nix-brown",
+    "kind": "parlay",
+    "desc": "Parlay",
+    "sport": "nfl",
+    "timeline": "season",
+    "stake": 20,
+    "payout": 550.20,
+    "notes": "$20 → $550.20",
+    "status": "open",
+    "legs": [
+      { "subject": "Javonte Williams", "stat": "rushingYards", "target": 1000, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Jaxson Dart", "stat": "rushingTouchdowns", "target": 7, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Tyler Warren", "stat": "receivingYards", "target": 775, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Kyren Williams", "stat": "rushingYards", "target": 1000, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Bo Nix", "stat": "passingYards", "target": 3500, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" },
+      { "subject": "Chase Brown", "stat": "rushingYards", "target": 826, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop" }
+    ]
   }
 ]
