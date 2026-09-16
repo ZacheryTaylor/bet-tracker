@@ -1,0 +1,41 @@
+{
+  "playerProp": {
+    "id": "unique-id-here",
+    "kind": "player-prop",
+    "desc": "Mahomes 4500+ passing yards",
+    "subject": "Patrick Mahomes",
+    "espnAthleteId": "3139477",
+    "sport": "nfl",
+    "timeline": "season",
+    "stat": "passingYards",
+    "target": 4500,
+    "current": 0,
+    "status": "open"
+  },
+  "teamRecord": {
+    "id": "unique-id-here",
+    "kind": "record",
+    "desc": "Chiefs 11+ wins",
+    "subject": "Kansas City Chiefs",
+    "sport": "nfl",
+    "timeline": "season",
+    "target": 11,
+    "current": 0,
+    "losses": 0,
+    "status": "open"
+  },
+  "game": {
+    "id": "unique-id-here",
+    "kind": "game",
+    "desc": "Chiefs -3.5 vs opponent",
+    "subject": "Kansas City Chiefs",
+    "sport": "nfl",
+    "timeline": "single",
+    "date": "2026-09-20",
+    "metric": "spread",
+    "line": -3.5,
+    "target": 1,
+    "current": 0,
+    "status": "open"
+  }
+}

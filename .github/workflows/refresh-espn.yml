@@ -1,0 +1,23 @@
+name: Refresh ESPN stats
+on:
+  schedule:
+    - cron: "20 * * * *"
+  workflow_dispatch:
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: node scripts/refresh-espn.js
+      - name: Commit updated stats
+        run: |
+          git config user.name "bet-tracker-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/bets.json
+          git diff --cached --quiet || git commit -m "Refresh ESPN stats"
+          git push

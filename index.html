@@ -11,31 +11,24 @@
     <header class="top">
       <div>
         <h1>Bet Tracker</h1>
-        <p class="lede">Add bets on this page. They save to GitHub and show on any computer.</p>
+        <p class="lede">Bets live in the repo file. Refresh pulls ESPN into the progress bars.</p>
       </div>
-      <div class="top-actions">
-        <button type="button" id="refreshBtn" class="edit-only" hidden>Refresh ESPN</button>
-        <button type="button" class="secondary" id="lockBtn">Unlock</button>
-      </div>
+      <button type="button" id="refreshBtn">Refresh ESPN</button>
     </header>
 
-    <section class="panel" id="lockPanel">
-      <h2>Unlock editing</h2>
-      <p class="hint">Passcode: <code>tracker</code>. One-time GitHub token (below) lets the site save bets for every computer. You will not edit code when adding bets.</p>
-      <ol class="hint">
-        <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">new fine-grained token</a></li>
-        <li>Resource owner: <strong>ZacheryTaylor</strong>. Only repository: <strong>bet-tracker</strong></li>
-        <li>Permissions: <strong>Contents: Read and write</strong>. Generate and paste it here once</li>
-      </ol>
+    <section class="panel">
+      <h2>How to add a bet</h2>
+      <p class="hint">Edit <a href="https://github.com/ZacheryTaylor/bet-tracker/edit/main/data/bets.json">data/bets.json</a>. Copy a template, commit, then refresh this page. No passcode.</p>
       <div class="grid-2">
-        <label>Passcode<input id="passcode" type="password" autocomplete="off" /></label>
-        <label>GitHub token (one time)<input id="ghToken" type="password" autocomplete="off" placeholder="github_pat_..." /></label>
+        <div>
+          <h3>Player prop</h3>
+          <pre id="tplPlayer"></pre>
+        </div>
+        <div>
+          <h3>Team record</h3>
+          <pre id="tplTeam"></pre>
+        </div>
       </div>
-      <div class="actions">
-        <button type="button" id="unlockBtn">Unlock and connect</button>
-        <button type="button" class="secondary" id="lockNowBtn">Lock</button>
-      </div>
-      <p class="status" id="lockStatus"></p>
     </section>
 
     <section class="filters">
@@ -59,45 +52,9 @@
       </select></label>
     </section>
 
-    <section class="panel edit-only" id="formPanel" hidden>
-      <h2>Add bet</h2>
-      <form id="betForm">
-        <div class="grid-4">
-          <label>Type<select id="kind">
-            <option value="player-prop">Player prop</option>
-            <option value="record">Team record (W-L)</option>
-            <option value="game">Game result</option>
-          </select></label>
-          <label>Sport<select id="sport"></select></label>
-          <label>Timeline<select id="timeline">
-            <option value="season">Season long</option>
-            <option value="single">Single game</option>
-          </select></label>
-          <label>Event date<input id="date" type="date" /></label>
-        </div>
-        <label>Bet / description<input id="desc" required placeholder="Mahomes 4,500 pass yards" /></label>
-        <div class="grid-4">
-          <label>Player or team<input id="subject" placeholder="Patrick Mahomes or Chiefs" /></label>
-          <label>Market / notes<input id="notes" placeholder="pass yds, over, +110" /></label>
-          <label>Target<input id="target" type="number" step="any" value="1" /></label>
-          <label>Current<input id="current" type="number" step="any" value="0" /></label>
-          <label class="game-only" hidden>Game metric<select id="metric">
-            <option value="team-win">Team win</option>
-            <option value="spread">Cover spread</option>
-            <option value="total-over">Total over</option>
-            <option value="total-under">Total under</option>
-          </select></label>
-          <label class="game-only" hidden>Line<input id="line" type="number" step="any" placeholder="-3.5 or 47.5" /></label>
-          <label class="record-only" hidden>Losses<input id="losses" type="number" step="1" value="0" /></label>
-        </div>
-        <button type="submit">Save bet</button>
-      </form>
-    </section>
-
     <p class="status" id="statusLine">Loading bets…</p>
     <div id="betList" class="list"></div>
   </div>
-  <script src="config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
