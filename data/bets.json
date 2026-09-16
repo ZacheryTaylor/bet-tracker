@@ -1,6 +1,6 @@
-{
-  "playerProp": {
-    "id": "unique-id-here",
+[
+  {
+    "id": "mahomes-pass-yds-2026",
     "kind": "player-prop",
     "desc": "Mahomes 4500+ passing yards",
     "subject": "Patrick Mahomes",
@@ -11,4 +11,5 @@
     "target": 4500,
     "current": 0,
     "status": "open"
-  },
+  }
+]
