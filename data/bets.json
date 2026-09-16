@@ -1,1 +1,14 @@
-[]
+{
+  "playerProp": {
+    "id": "unique-id-here",
+    "kind": "player-prop",
+    "desc": "Mahomes 4500+ passing yards",
+    "subject": "Patrick Mahomes",
+    "espnAthleteId": "3139477",
+    "sport": "nfl",
+    "timeline": "season",
+    "stat": "passingYards",
+    "target": 4500,
+    "current": 0,
+    "status": "open"
+  },
