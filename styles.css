@@ -16,18 +16,20 @@ body {
 }
 .app { max-width: 980px; margin: 0 auto; padding: 28px 18px 64px; }
 h1 { margin: 0 0 6px; font-size: 1.75rem; }
-h2, h3 { margin: 0 0 10px; }
-h3 { font-size: 0.95rem; }
-.lede, .hint, .status { color: var(--muted); margin: 0 0 12px; }
+.lede, .hint, .status, .meta { color: var(--muted); }
+.lede, .status { margin: 0 0 12px; }
+.meta { margin: 0; font-size: 13px; }
 .top { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 20px; }
-.panel, .filters {
+.filters {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 14px;
 }
-.filters { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 label { display: grid; gap: 6px; font-size: 12px; font-weight: 600; color: var(--muted); }
 select, button { font: inherit; }
 select {
@@ -47,16 +49,6 @@ button {
   cursor: pointer;
 }
 button:disabled { opacity: .55; }
-pre {
-  margin: 0;
-  padding: 10px;
-  background: #f6f8fa;
-  border-radius: 8px;
-  font-size: 11px;
-  overflow: auto;
-  max-height: 280px;
-}
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .list { display: grid; gap: 10px; }
 .card {
   background: var(--card);
@@ -66,7 +58,6 @@ pre {
 }
 .card-top { display: flex; justify-content: space-between; gap: 12px; }
 .title { margin: 0 0 4px; font-weight: 650; }
-.meta { margin: 0; font-size: 13px; color: var(--muted); }
 .chips { display: flex; gap: 6px; flex-wrap: wrap; }
 .chip {
   font-size: 11px;
@@ -76,9 +67,16 @@ pre {
   border-radius: 999px;
   padding: 3px 8px;
 }
-.bar { height: 10px; background: #eceff3; border-radius: 999px; overflow: hidden; margin: 12px 0 6px; }
+.bar { height: 10px; background: #eceff3; border-radius: 999px; overflow: hidden; margin: 10px 0 6px; }
+.bar.small { height: 8px; margin: 6px 0 4px; }
 .bar > span { display: block; height: 100%; }
+.legs { margin-top: 12px; display: grid; gap: 10px; }
+.leg {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.leg-title { margin: 0; font-size: 14px; font-weight: 600; }
 @media (max-width: 800px) {
-  .grid-2, .filters { grid-template-columns: 1fr; }
+  .filters { grid-template-columns: 1fr 1fr; }
   .top { flex-direction: column; }
 }

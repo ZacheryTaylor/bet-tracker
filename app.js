@@ -2,32 +2,19 @@ const SPORTS = [
   { id: "nfl", label: "NFL", path: "football/nfl", standings: "football/nfl", athlete: "football/nfl" },
   { id: "ncaaf", label: "College football", path: "football/college-football", standings: "football/college-football", athlete: "football/college-football" },
   { id: "nba", label: "NBA", path: "basketball/nba", standings: "basketball/nba", athlete: "basketball/nba" },
-  { id: "ncaab", label: "College basketball", path: "basketball/mens-college-basketball", standings: "basketball/mens-college-basketball", athlete: "basketball/mens-college-basketball" },
   { id: "mlb", label: "MLB", path: "baseball/mlb", standings: "baseball/mlb", athlete: "baseball/mlb" },
   { id: "nhl", label: "NHL", path: "hockey/nhl", standings: "hockey/nhl", athlete: "hockey/nhl" },
-  { id: "soccer", label: "Soccer (MLS)", path: "soccer/usa.1", standings: null, athlete: null },
   { id: "other", label: "Other", path: null, standings: null, athlete: null }
 ];
 
-const STAT_NAMES = {
-  passingYards: ["passingYards", "passingYds", "netPassingYards"],
-  passingTouchdowns: ["passingTouchdowns", "passingTDs"],
-  rushingYards: ["rushingYards"],
-  rushingTouchdowns: ["rushingTouchdowns", "rushingTDs"],
-  receivingYards: ["receivingYards"],
-  receptions: ["receptions", "receivingReceptions"],
-  receivingTouchdowns: ["receivingTouchdowns"],
-  points: ["points", "avgPoints", "totalPoints"],
-  rebounds: ["rebounds", "avgRebounds"],
-  assists: ["assists", "avgAssists"],
-  threePointers: ["threePointFieldGoalsMade", "threePointersMade"],
-  homeRuns: ["homeRuns"],
-  rbi: ["RBIs", "rbi"],
-  battingAverage: ["avg", "battingAverage"],
-  strikeouts: ["strikeouts"],
-  goals: ["goals"],
-  saves: ["saves"],
-  wins: ["wins"]
+const STAT_MATCH = {
+  passingYards: { cats: ["passing"], names: ["passingyards", "passingyds", "netpassingyards", "yds"] },
+  passingTouchdowns: { cats: ["passing"], names: ["passingtouchdowns", "passingtds", "td"] },
+  rushingYards: { cats: ["rushing"], names: ["rushingyards", "rushingyds", "yds"] },
+  rushingTouchdowns: { cats: ["rushing"], names: ["rushingtouchdowns", "rushingtds", "td"] },
+  receivingYards: { cats: ["receiving"], names: ["receivingyards", "receivingyds", "yds"] },
+  receptions: { cats: ["receiving"], names: ["receptions", "rec"] },
+  receivingTouchdowns: { cats: ["receiving"], names: ["receivingtouchdowns", "receivingtds", "td"] }
 };
 
 const $ = (id) => document.getElementById(id);
@@ -37,46 +24,46 @@ function normalizeBets(data) {
   if (Array.isArray(data)) return data.filter(Boolean);
   if (!data || typeof data !== "object") return [];
   if (data.kind) return [data];
-  const out = [];
-  for (const key of ["playerProp", "teamRecord", "game"]) {
-    if (data[key] && typeof data[key] === "object") out.push(data[key]);
-  }
-  if (out.length) return out;
-  return Object.values(data).filter((v) => v && typeof v === "object" && v.kind);
+  return Object.values(data).filter((v) => v && v.kind);
 }
-
 function sportLabel(id) {
   return (SPORTS.find((s) => s.id === id) || {}).label || id;
 }
 function kindLabel(kind) {
-  if (kind === "record") return "Team record";
-  if (kind === "game") return "Game";
-  return "Player prop";
+  return { record: "Team record", game: "Game", parlay: "Parlay", award: "Award" }[kind] || "Player prop";
 }
 function pct(bet) {
   const t = Number(bet.target) || 1;
-  const c = Number(bet.current) || 0;
-  return Math.max(0, Math.min(100, (c / t) * 100));
+  return Math.max(0, Math.min(100, ((Number(bet.current) || 0) / t) * 100));
+}
+function parlayPct(bet) {
+  const legs = bet.legs || [];
+  if (!legs.length) return 0;
+  return legs.reduce((s, l) => s + pct(l), 0) / legs.length;
 }
 function solidColor(p) {
   const x = Math.max(0, Math.min(100, p)) / 100;
   let r, g, b;
   if (x < 0.5) {
     const t = x / 0.5;
-    r = 192; g = Math.round(57 + t * (196 - 57)); b = Math.round(43 + t * (15 - 43));
+    r = 192; g = Math.round(57 + t * 139); b = Math.round(43 - t * 28);
   } else {
     const t = (x - 0.5) / 0.5;
-    r = Math.round(241 + t * (39 - 241)); g = Math.round(196 + t * (174 - 196)); b = Math.round(15 + t * (96 - 15));
+    r = Math.round(241 - t * 202); g = Math.round(196 - t * 22); b = Math.round(15 + t * 81);
   }
   return `rgb(${r}, ${g}, ${b})`;
 }
 function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-  }[c]));
+  return String(s || "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 function norm(s) {
   return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+function compact(s) {
+  return String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+function bar(p, small) {
+  return `<div class="bar${small ? " small" : ""}"><span style="width:${p}%;background:${solidColor(p)}"></span></div>`;
 }
 
 function fillSports() {
@@ -95,21 +82,32 @@ function render() {
     if (sport !== "all" && b.sport !== sport) return false;
     if (kind !== "all" && k !== kind) return false;
     if (timeline !== "all" && b.timeline !== timeline) return false;
-    if (status !== "all" && b.status !== status) return false;
+    if (status !== "all" && (b.status || "open") !== status) return false;
     return true;
   });
   $("statusLine").textContent = `${filtered.length} bet(s)`;
   $("betList").innerHTML = filtered.map((b) => {
-    const p = pct(b);
     const k = b.kind || "player-prop";
-    const record = k === "record"
-      ? `${Number(b.current) || 0}-${Number(b.losses) || 0}`
-      : `${Number(b.current)} / ${Number(b.target)}`;
+    const p = k === "parlay" ? parlayPct(b) : pct(b);
+    const money = b.notes || (b.stake != null ? `$${b.stake} → $${b.payout}` : "");
+    const summary = k === "record"
+      ? `${Number(b.current) || 0}-${Number(b.losses) || 0} · target ${Number(b.target)} wins`
+      : k === "parlay"
+        ? `${(b.legs || []).length} legs · all must hit`
+        : `${Number(b.current) || 0} / ${Number(b.target)}`;
+    const legs = k === "parlay" ? `<div class="legs">${(b.legs || []).map((leg) => {
+      const lp = pct(leg);
+      return `<div class="leg">
+        <p class="leg-title">${escapeHtml(leg.subject)} · ${escapeHtml(leg.stat || "")}</p>
+        ${bar(lp, true)}
+        <p class="meta">${lp.toFixed(0)}% · ${Number(leg.current) || 0} / ${Number(leg.target)}${leg.lastSync ? " · " + escapeHtml(leg.lastSync) : ""}</p>
+      </div>`;
+    }).join("")}</div>` : "";
     return `<article class="card">
       <div class="card-top">
         <div>
-          <p class="title">${escapeHtml(b.desc || "Untitled bet")}</p>
-          <p class="meta">${escapeHtml(b.subject || "")}${b.stat ? " · " + escapeHtml(b.stat) : ""}${b.date ? " · " + b.date : ""}${b.lastSync ? " · synced " + b.lastSync : ""}</p>
+          <p class="title">${escapeHtml(b.desc)}</p>
+          <p class="meta">${escapeHtml(b.subject || "")}${money ? " · " + escapeHtml(money) : ""}${b.lastSync ? " · " + escapeHtml(b.lastSync) : ""}</p>
         </div>
         <div class="chips">
           <span class="chip">${sportLabel(b.sport)}</span>
@@ -118,10 +116,11 @@ function render() {
           <span class="chip">${b.status || "open"}</span>
         </div>
       </div>
-      <div class="bar"><span style="width:${p}%;background:${solidColor(p)}"></span></div>
-      <p class="meta">${p.toFixed(0)}% · ${record}${k === "record" ? " · target " + Number(b.target) + " wins" : ""}</p>
+      ${bar(p)}
+      <p class="meta">${p.toFixed(0)}% · ${summary}</p>
+      ${legs}
     </article>`;
-  }).join("") || `<p class="meta">No bets found. data/bets.json should look like [ { ...bet } ].</p>`;
+  }).join("") || `<p class="meta">No bets found.</p>`;
 }
 
 async function loadBets() {
@@ -136,41 +135,40 @@ async function loadBets() {
       bets = normalizeBets(await res.json());
       render();
       return;
-    } catch (e) {
-      console.warn(e);
-    }
+    } catch (e) { console.warn(e); }
   }
-  bets = [];
   $("statusLine").textContent = "Could not load data/bets.json";
-  render();
 }
 
-async function loadTemplates() {
-  try {
-    const res = await fetch(`data/templates.json?t=${Date.now()}`);
-    const t = await res.json();
-    if ($("tplPlayer")) $("tplPlayer").textContent = JSON.stringify([t.playerProp], null, 2);
-    if ($("tplTeam")) $("tplTeam").textContent = JSON.stringify([t.teamRecord], null, 2);
-  } catch {
-    if ($("tplPlayer")) $("tplPlayer").textContent = "See data/templates.json";
-    if ($("tplTeam")) $("tplTeam").textContent = "See data/templates.json";
-  }
-}
-
-function walkValues(node, fn) {
+function walk(node, fn) {
   if (!node || typeof node !== "object") return;
-  if (Array.isArray(node)) { node.forEach((n) => walkValues(n, fn)); return; }
+  if (Array.isArray(node)) { node.forEach((n) => walk(n, fn)); return; }
   fn(node);
-  Object.values(node).forEach((v) => walkValues(v, fn));
+  Object.values(node).forEach((v) => walk(v, fn));
 }
 
 function extractStat(data, stat) {
-  const names = STAT_NAMES[stat] || [stat];
+  const cfg = STAT_MATCH[stat] || { cats: [], names: [compact(stat)] };
   const hits = [];
-  walkValues(data, (obj) => {
-    const n = String(obj.name || obj.abbreviation || "");
-    if (obj.value == null && obj.displayValue == null) return;
-    if (names.some((x) => n.toLowerCase() === x.toLowerCase())) {
+  walk(data, (obj) => {
+    const cat = compact(obj.displayName || obj.name || obj.abbreviation || "");
+    if (!obj.stats && obj.value == null && obj.displayValue == null) return;
+    if (Array.isArray(obj.stats)) {
+      const catOk = !cfg.cats.length || cfg.cats.some((c) => cat.includes(c));
+      if (!catOk && cfg.cats.length) return;
+      obj.stats.forEach((st) => {
+        const n = compact(st.name || st.abbreviation || st.displayName);
+        if (cfg.names.includes(n) || n === compact(stat)) {
+          const v = Number(st.value != null ? st.value : st.displayValue);
+          if (!Number.isNaN(v)) hits.push(v);
+        }
+      });
+    }
+  });
+  if (hits.length) return hits[hits.length - 1];
+  walk(data, (obj) => {
+    const n = compact(obj.name || obj.displayName);
+    if (n === compact(stat) && (obj.value != null || obj.displayValue != null)) {
       const v = Number(obj.value != null ? obj.value : obj.displayValue);
       if (!Number.isNaN(v)) hits.push(v);
     }
@@ -178,28 +176,52 @@ function extractStat(data, stat) {
   return hits.length ? hits[hits.length - 1] : null;
 }
 
+function isNflAthlete(obj) {
+  const blob = JSON.stringify(obj).toLowerCase();
+  return blob.includes("nfl") || blob.includes("s:20") || blob.includes("football/nfl");
+}
+
 async function resolveAthleteId(bet) {
-  if (bet.espnAthleteId) return bet.espnAthleteId;
+  if (bet.espnAthleteId) return String(bet.espnAthleteId);
+  const sport = SPORTS.find((s) => s.id === (bet.sport || "nfl"));
   const q = encodeURIComponent(bet.subject || "");
-  const res = await fetch(`https://site.web.api.espn.com/apis/common/v3/search?query=${q}&limit=8`);
-  if (!res.ok) return null;
-  const data = await res.json();
-  let id = null;
-  walkValues(data, (obj) => {
-    if (id) return;
-    if (obj.id && norm(obj.displayName || obj.fullName).includes(norm(bet.subject))) id = String(obj.id);
-  });
-  return id;
+  const urls = [
+    `https://site.web.api.espn.com/apis/common/v3/search?query=${q}&limit=15`,
+    `https://site.api.espn.com/apis/site/v2/sports/${sport?.athlete || "football/nfl"}/athletes?limit=20`
+  ];
+  const want = norm(bet.subject);
+  for (const url of urls) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) continue;
+      const data = await res.json();
+      let id = null;
+      walk(data, (obj) => {
+        if (id) return;
+        const name = norm(obj.displayName || obj.fullName || obj.name);
+        if (!obj.id || !name) return;
+        if (!(name === want || name.includes(want) || want.includes(name))) return;
+        if ((bet.sport || "nfl") === "nfl" && !isNflAthlete(obj) && url.includes("search")) return;
+        id = String(obj.id).replace(/\D/g, "") || String(obj.id);
+      });
+      if (id) return id;
+    } catch (e) { console.warn(e); }
+  }
+  return null;
 }
 
 async function refreshPlayer(bet) {
-  const sport = SPORTS.find((s) => s.id === bet.sport);
+  if (bet.kind === "award") return false;
+  const sport = SPORTS.find((s) => s.id === (bet.sport || "nfl"));
+  if (!sport?.athlete || !bet.stat) return false;
   const id = await resolveAthleteId(bet);
-  if (!sport || !id || !bet.stat) return false;
+  if (!id) return false;
   const year = new Date().getFullYear();
   const urls = [
     `https://site.web.api.espn.com/apis/common/v3/sports/${sport.athlete}/athletes/${id}/stats?season=${year}&seasontype=2`,
-    `https://site.web.api.espn.com/apis/common/v3/sports/${sport.athlete}/athletes/${id}/overview`
+    `https://site.web.api.espn.com/apis/common/v3/sports/${sport.athlete}/athletes/${id}/splits?season=${year}`,
+    `https://site.web.api.espn.com/apis/common/v3/sports/${sport.athlete}/athletes/${id}/overview`,
+    `https://sports.core.api.espn.com/v2/sports/${sport.athlete.replace("/", "/leagues/")}/seasons/${year}/types/2/athletes/${id}/statistics`
   ];
   for (const url of urls) {
     try {
@@ -212,9 +234,7 @@ async function refreshPlayer(bet) {
       bet.lastSync = new Date().toLocaleString();
       if ((bet.status || "open") === "open" && pct(bet) >= 100) bet.status = "hit";
       return true;
-    } catch (e) {
-      console.warn(e);
-    }
+    } catch (e) { console.warn(e); }
   }
   return false;
 }
@@ -223,28 +243,8 @@ function walkTeams(node, acc = []) {
   if (!node) return acc;
   if (Array.isArray(node)) { node.forEach((n) => walkTeams(n, acc)); return acc; }
   if (node.team && (node.stats || node.team.record)) acc.push(node);
-  ["children", "standings", "entries"].forEach((k) => walkTeams(node[k], acc));
+  ["children", "standings", "entries"].forEach((k) => { if (node[k]) walkTeams(node[k], acc); });
   return acc;
-}
-
-function recordFromEntry(entry) {
-  const stats = entry.stats || [];
-  const wins = Number((stats.find((s) => s.name === "wins") || {}).value);
-  const losses = Number((stats.find((s) => s.name === "losses") || {}).value);
-  if (!Number.isNaN(wins) || !Number.isNaN(losses)) return { wins: wins || 0, losses: losses || 0 };
-  const summary = entry.team?.record?.items?.[0]?.summary || "";
-  const m = summary.match(/^(\d+)-(\d+)/);
-  return m ? { wins: Number(m[1]), losses: Number(m[2]) } : null;
-}
-
-function findCompetitor(event, query) {
-  const q = norm(query);
-  if (!q) return null;
-  const comps = event.competitions?.[0]?.competitors || [];
-  return comps.find((c) => {
-    const names = [c.team?.displayName, c.team?.shortDisplayName, c.team?.abbreviation, c.team?.name, c.team?.nickname];
-    return names.some((n) => norm(n).includes(q) || q.includes(norm(n)));
-  }) || null;
 }
 
 async function refreshRecord(bet) {
@@ -257,69 +257,54 @@ async function refreshRecord(bet) {
     const names = [en.team?.displayName, en.team?.shortDisplayName, en.team?.abbreviation, en.team?.name, en.team?.nickname, en.team?.location];
     return names.some((n) => q && (norm(n).includes(q) || q.includes(norm(n))));
   });
-  const rec = entry && recordFromEntry(entry);
-  if (!rec) return false;
-  bet.current = rec.wins;
-  bet.losses = rec.losses;
+  if (!entry) return false;
+  const stats = entry.stats || [];
+  const wins = Number((stats.find((s) => s.name === "wins") || {}).value);
+  const losses = Number((stats.find((s) => s.name === "losses") || {}).value);
+  if (!Number.isNaN(wins)) bet.current = wins;
+  if (!Number.isNaN(losses)) bet.losses = losses;
   bet.lastSync = new Date().toLocaleString();
   if ((bet.status || "open") === "open" && pct(bet) >= 100) bet.status = "hit";
   return true;
 }
 
-async function refreshGame(bet) {
-  const sport = SPORTS.find((s) => s.id === bet.sport);
-  if (!sport?.path) return false;
-  const dates = (bet.date || "").replaceAll("-", "");
-  const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${sport.path}/scoreboard${dates ? "?dates=" + dates : ""}`);
-  if (!res.ok) return false;
-  const event = ((await res.json()).events || []).find((ev) => findCompetitor(ev, bet.subject));
-  if (!event) return false;
-  const comp = event.competitions?.[0];
-  const me = findCompetitor(event, bet.subject);
-  const total = (comp.competitors || []).reduce((a, c) => a + (Number(c.score) || 0), 0);
-  const finished = ["STATUS_FINAL", "STATUS_FULL_TIME"].includes(comp.status?.type?.name);
-  const myScore = me ? Number(me.score) || 0 : 0;
-  const opp = me ? comp.competitors.find((c) => c.id !== me.id) : null;
-  const oppScore = opp ? Number(opp.score) || 0 : 0;
-  if (bet.metric === "team-win") {
-    bet.target = 1;
-    bet.current = me && myScore > oppScore ? 1 : 0;
-    if (finished) bet.status = bet.current >= 1 ? "hit" : "miss";
-  } else if (bet.metric === "spread" && bet.line != null && me) {
-    bet.target = 1;
-    bet.current = myScore + Number(bet.line) > oppScore ? 1 : 0;
-    if (finished) bet.status = bet.current >= 1 ? "hit" : "miss";
-  } else if (bet.metric === "total-over" && bet.line != null) {
-    bet.target = Number(bet.line);
-    bet.current = total;
-    if (finished) bet.status = total > Number(bet.line) ? "hit" : "miss";
-  } else if (bet.metric === "total-under" && bet.line != null) {
-    bet.target = 1;
-    bet.current = finished && total < Number(bet.line) ? 1 : 0;
-    if (finished) bet.status = total < Number(bet.line) ? "hit" : "miss";
+async function refreshOne(bet) {
+  if (!bet || bet.template) return false;
+  if (bet.kind === "parlay") {
+    let any = false;
+    for (const leg of bet.legs || []) {
+      leg.sport = leg.sport || bet.sport || "nfl";
+      leg.kind = "player-prop";
+      if (await refreshPlayer(leg)) any = true;
+    }
+    if (any) {
+      const legs = bet.legs || [];
+      if (legs.length && legs.every((l) => pct(l) >= 100)) bet.status = "hit";
+      bet.lastSync = new Date().toLocaleString();
+    }
+    return any;
   }
-  bet.lastSync = new Date().toLocaleString();
-  return true;
+  if (bet.kind === "record") return refreshRecord(bet);
+  if (bet.kind === "award") return false;
+  return refreshPlayer(bet);
 }
 
 $("refreshBtn").addEventListener("click", async () => {
   $("refreshBtn").disabled = true;
   $("statusLine").textContent = "Refreshing ESPN…";
   let n = 0;
+  const missed = [];
   for (const bet of bets) {
-    if (!bet || bet.template) continue;
     try {
-      const ok = bet.kind === "record" ? await refreshRecord(bet)
-        : bet.kind === "game" ? await refreshGame(bet)
-        : await refreshPlayer(bet);
-      if (ok) n += 1;
+      if (await refreshOne(bet)) n += 1;
+      else if (bet.kind !== "award") missed.push(bet.desc || bet.subject || bet.id);
     } catch (e) {
-      console.warn(e);
+      missed.push((bet.desc || bet.id) + " (" + e.message + ")");
     }
   }
   render();
   $("refreshBtn").disabled = false;
-  $("statusLine").textContent = `Updated ${n} bet(s) from ESPN.`;
+  $("statusLine").textContent = `Updated ${n} bet(s).` + (missed.length ? ` No ESPN match yet: ${missed.slice(0, 6).join("; ")}${missed.length > 6 ? "…" : ""}` : "");
 });
 
 ["filterSport", "filterType", "filterTimeline", "filterStatus"].forEach((id) => {
@@ -327,5 +312,4 @@ $("refreshBtn").addEventListener("click", async () => {
 });
 
 fillSports();
-loadTemplates();
 loadBets();
