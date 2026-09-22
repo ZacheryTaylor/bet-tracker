@@ -1,45 +1,4 @@
-const fs = require("fs");
-const path = require("path");
-const { refreshPlayer } = require("./espn-player");
-const { findOverallRecord } = require("./team-record");
-
-const file = path.join(__dirname, "..", "data", "bets.json");
-
-function pct(bet) {
-  const target = Number(bet.target) || 1;
-  return ((Number(bet.current) || 0) / target) * 100;
-}
-
-async function refreshRecord(bet) {
-  const res = await fetch("https://site.api.espn.com/apis/v2/sports/football/nfl/standings");
-  if (!res.ok) throw new Error(`Standings ${res.status}`);
-  const record = findOverallRecord(await res.json(), bet.subject);
-  if (!record) throw new Error(`No overall record found for ${bet.subject}`);
-  bet.current = record.wins;
-  bet.losses = record.losses;
-  bet.ties = record.ties;
-  bet.lastSync = new Date().toISOString();
-  if ((bet.status || "open") === "open" && pct(bet) >= 100) bet.status = "hit";
-}
-
-async function main() {
-  const bets = JSON.parse(fs.readFileSync(file, "utf8"));
-  for (const bet of bets) {
-    try {
-      if (bet.kind === "record") await refreshRecord(bet);
-      else if (bet.kind === "parlay") {
-        for (const leg of bet.legs || []) {
-          leg.sport = leg.sport || "nfl";
-          await refreshPlayer(leg);
-        }
-      } else if (bet.kind !== "award") {
-        await refreshPlayer(bet);
-      }
-    } catch (error) {
-      console.warn(bet.id || bet.desc, error.message);
-    }
-  }
-  fs.writeFileSync(file, JSON.stringify(bets, null, 2) + "\n");
-}
-
-main();
+const fs=require("fs");const path=require("path");const{refreshPlayer}=require("./espn-player");const{findOverallRecord}=require("./team-record");const file=path.join(__dirname,"..","data","bets.json");
+function pct(b){const t=Number(b.target)||1;return(Number(b.current)||0)/t*100}
+async function refreshRecord(b){const r=await fetch("https://site.api.espn.com/apis/v2/sports/football/nfl/standings");if(!r.ok)throw new Error(`Standings ${r.status}`);const record=findOverallRecord(await r.json(),b.subject);if(!record)throw new Error(`No overall record found for ${b.subject}`);b.current=record.wins;b.losses=record.losses;b.ties=record.ties;b.gamesPlayed=record.wins+record.losses+record.ties;b.lastSync=new Date().toISOString();if((b.status||"open")==="open"&&pct(b)>=100)b.status="hit"}
+async function main(){const bets=JSON.parse(fs.readFileSync(file,"utf8"));for(const b of bets)try{if(b.kind==="record")await refreshRecord(b);else if(b.kind==="parlay"){for(const leg of b.legs||[]){leg.sport=leg.sport||"nfl";await refreshPlayer(leg)}}else if(b.kind!=="award"&&b.kind!=="future")await refreshPlayer(b)}catch(e){console.warn(b.id||b.desc,e.message)}fs.writeFileSync(file,JSON.stringify(bets,null,2)+"\n")};main();
