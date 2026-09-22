@@ -13,7 +13,10 @@
         <h1>Bet Tracker</h1>
         <p class="lede">Parlays are joint bets. Each leg has its own bar. Refresh pulls ESPN stats.</p>
       </div>
-      <button type="button" id="refreshBtn">Refresh ESPN</button>
+      <div class="top-actions">
+        <button type="button" id="refreshBtn">Refresh ESPN</button>
+        <button type="button" class="secondary" id="reportBtn">Chart Report</button>
+      </div>
     </header>
     <section class="filters">
       <label>User<select id="filterUser"></select></label>
@@ -24,6 +27,7 @@
         <option value="record">Team records</option>
         <option value="parlay">Parlays</option>
         <option value="award">Awards</option>
+        <option value="future">Futures</option>
       </select></label>
       <label>Timeline<select id="filterTimeline">
         <option value="all">All</option>
@@ -36,6 +40,22 @@
         <option value="hit">Hit</option>
         <option value="miss">Miss</option>
       </select></label>
+    </section>
+    <section class="report" id="reportPanel" hidden aria-live="polite">
+      <div class="report-head">
+        <div>
+          <p class="report-kicker">Filtered chart report</p>
+          <h2 id="reportTitle">Bet progress</h2>
+        </div>
+        <button type="button" class="icon-button" id="closeReportBtn" aria-label="Close chart report">×</button>
+      </div>
+      <div class="report-stats" id="reportStats"></div>
+      <div class="report-overall">
+        <div class="report-progress-label"><span>Overall progress</span><strong id="reportPercent">0%</strong></div>
+        <div class="bar report-bar"><span id="reportBar"></span></div>
+        <p class="meta" id="reportNote"></p>
+      </div>
+      <div class="report-chart" id="reportChart"></div>
     </section>
     <p class="status" id="statusLine">Loading bets…</p>
     <div id="betList" class="list"></div>
