@@ -23,13 +23,13 @@ function kindLabel(kind) {
   return { record: "Team record", parlay: "Parlay", award: "Award", game: "Game" }[kind] || "Player prop";
 }
 function pct(bet) {
-  const t = Number(bet.target) || 1;
-  return Math.max(0, Math.min(100, ((Number(bet.current) || 0) / t) * 100));
+  const target = Number(bet.target) || 1;
+  return Math.max(0, Math.min(100, ((Number(bet.current) || 0) / target) * 100));
 }
 function parlayPct(bet) {
   const legs = bet.legs || [];
   if (!legs.length) return 0;
-  return legs.reduce((s, l) => s + pct(l), 0) / legs.length;
+  return legs.reduce((sum, leg) => sum + pct(leg), 0) / legs.length;
 }
 function solidColor(p) {
   const x = Math.max(0, Math.min(100, p)) / 100;
@@ -46,16 +46,14 @@ function solidColor(p) {
 function escapeHtml(s) {
   return String(s || "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
-function norm(s) {
-  return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-}
-function bar(p, small) {
-  return `<div class="bar${small ? " small" : ""}"><span style="width:${p}%;background:${solidColor(p)}"></span></div>`;
-}
 
 function fillSports() {
   $("filterSport").innerHTML = `<option value="all">All sports</option>` +
-    SPORTS.map((s) => `<option value="${s.id}">${s.label}</option>`).join("");
+    SPORTS.map((sport) => `<option value="${sport.id}">${sport.label}</option>`).join("");
+}
+
+function bar(p, small = false) {
+  return `<div class="bar${small ? " small" : ""}"><span style="width:${p}%;background:${solidColor(p)}"></span></div>`;
 }
 
 function render() {
@@ -63,47 +61,46 @@ function render() {
   const kind = $("filterType").value;
   const timeline = $("filterTimeline").value;
   const status = $("filterStatus").value;
-  const filtered = bets.filter((b) => {
-    if (!b || b.template) return false;
-    const k = b.kind || "player-prop";
-    if (sport !== "all" && b.sport !== sport) return false;
-    if (kind !== "all" && k !== kind) return false;
-    if (timeline !== "all" && b.timeline !== timeline) return false;
-    if (status !== "all" && (b.status || "open") !== status) return false;
+  const filtered = bets.filter((bet) => {
+    if (!bet || bet.template) return false;
+    if (sport !== "all" && bet.sport !== sport) return false;
+    if (kind !== "all" && (bet.kind || "player-prop") !== kind) return false;
+    if (timeline !== "all" && bet.timeline !== timeline) return false;
+    if (status !== "all" && (bet.status || "open") !== status) return false;
     return true;
   });
   $("statusLine").textContent = `${filtered.length} bet(s)`;
-  $("betList").innerHTML = filtered.map((b) => {
-    const k = b.kind || "player-prop";
-    const p = k === "parlay" ? parlayPct(b) : pct(b);
-    const money = b.notes || "";
-    const summary = k === "record"
-      ? `${Number(b.current) || 0}-${Number(b.losses) || 0} · target ${Number(b.target)} wins`
-      : k === "parlay"
-        ? `${(b.legs || []).length} legs · all must hit`
-        : `${Number(b.current) || 0} / ${Number(b.target)}`;
-    const legs = k === "parlay" ? `<div class="legs">${(b.legs || []).map((leg) => {
-      const lp = pct(leg);
+  $("betList").innerHTML = filtered.map((bet) => {
+    const kind = bet.kind || "player-prop";
+    const progress = kind === "parlay" ? parlayPct(bet) : pct(bet);
+    const money = bet.notes || "";
+    const summary = kind === "record"
+      ? `${Number(bet.current) || 0}-${Number(bet.losses) || 0}${Number(bet.ties) ? `-${Number(bet.ties)}` : ""} · target ${Number(bet.target)} wins`
+      : kind === "parlay"
+        ? `${(bet.legs || []).length} legs · all must hit`
+        : `${Number(bet.current) || 0} / ${Number(bet.target)}`;
+    const legs = kind === "parlay" ? `<div class="legs">${(bet.legs || []).map((leg) => {
+      const legProgress = pct(leg);
       return `<div class="leg">
         <p class="leg-title">${escapeHtml(leg.subject)} · ${escapeHtml(leg.stat || "")}</p>
-        ${bar(lp, true)}
-        <p class="meta">${lp.toFixed(0)}% · ${Number(leg.current) || 0} / ${Number(leg.target)}</p>
+        ${bar(legProgress, true)}
+        <p class="meta">${legProgress.toFixed(0)}% · ${Number(leg.current) || 0} / ${Number(leg.target)}</p>
       </div>`;
     }).join("")}</div>` : "";
     return `<article class="card">
       <div class="card-top">
         <div>
-          <p class="title">${escapeHtml(b.desc)}</p>
-          <p class="meta">${escapeHtml(b.subject || "")}${money ? " · " + escapeHtml(money) : ""}</p>
+          <p class="title">${escapeHtml(bet.desc)}</p>
+          <p class="meta">${escapeHtml(bet.subject || "")}${money ? " · " + escapeHtml(money) : ""}</p>
         </div>
         <div class="chips">
-          <span class="chip">${sportLabel(b.sport)}</span>
-          <span class="chip">${kindLabel(k)}</span>
-          <span class="chip">${b.status || "open"}</span>
+          <span class="chip">${sportLabel(bet.sport)}</span>
+          <span class="chip">${kindLabel(kind)}</span>
+          <span class="chip">${bet.status || "open"}</span>
         </div>
       </div>
-      ${bar(p)}
-      <p class="meta">${p.toFixed(0)}% · ${summary}</p>
+      ${bar(progress)}
+      <p class="meta">${progress.toFixed(0)}% · ${summary}</p>
       ${legs}
     </article>`;
   }).join("") || `<p class="meta">No bets found.</p>`;
@@ -116,78 +113,66 @@ async function loadBets() {
   ];
   for (const url of urls) {
     try {
-      const res = await fetch(url);
-      if (!res.ok) continue;
-      bets = normalizeBets(await res.json());
+      const response = await fetch(url);
+      if (!response.ok) continue;
+      bets = normalizeBets(await response.json());
       render();
       return;
-    } catch (e) { console.warn(e); }
+    } catch (error) {
+      console.warn(error);
+    }
   }
   $("statusLine").textContent = "Could not load data/bets.json";
 }
 
-function walkTeams(node, acc = []) {
-  if (!node) return acc;
-  if (Array.isArray(node)) { node.forEach((n) => walkTeams(n, acc)); return acc; }
-  if (node.team && (node.stats || node.team.record)) acc.push(node);
-  ["children", "standings", "entries"].forEach((k) => { if (node[k]) walkTeams(node[k], acc); });
-  return acc;
-}
-
 async function refreshRecord(bet) {
-  const res = await fetch("https://site.api.espn.com/apis/v2/sports/football/nfl/standings");
-  if (!res.ok) return false;
-  const q = norm(bet.subject);
-  const entry = walkTeams(await res.json()).find((en) => {
-    const names = [en.team?.displayName, en.team?.shortDisplayName, en.team?.abbreviation, en.team?.name, en.team?.nickname];
-    return names.some((n) => q && (norm(n).includes(q) || q.includes(norm(n))));
-  });
-  if (!entry) return false;
-  const stats = entry.stats || [];
-  const wins = Number((stats.find((s) => s.name === "wins") || {}).value);
-  const losses = Number((stats.find((s) => s.name === "losses") || {}).value);
-  if (!Number.isNaN(wins)) bet.current = wins;
-  if (!Number.isNaN(losses)) bet.losses = losses;
+  if (!window.TeamRecord) throw new Error("Team record helper did not load");
+  const response = await fetch("https://site.api.espn.com/apis/v2/sports/football/nfl/standings");
+  if (!response.ok) throw new Error(`Standings ${response.status}`);
+  const record = window.TeamRecord.findOverallRecord(await response.json(), bet.subject);
+  if (!record) throw new Error(`No overall record found for ${bet.subject}`);
+  bet.current = record.wins;
+  bet.losses = record.losses;
+  bet.ties = record.ties;
   if ((bet.status || "open") === "open" && pct(bet) >= 100) bet.status = "hit";
   return true;
 }
 
 async function refreshOne(bet) {
-  if (!bet) return false;
-  if (bet.kind === "award") return false;
+  if (!bet || bet.kind === "award") return false;
   if (bet.kind === "record") return refreshRecord(bet);
   if (bet.kind === "parlay") {
-    let any = false;
+    let updated = false;
     for (const leg of bet.legs || []) {
       leg.sport = leg.sport || bet.sport || "nfl";
-      if (await window.EspnPlayer.refreshPlayer(leg)) any = true;
+      if (await window.EspnPlayer.refreshPlayer(leg)) updated = true;
     }
-    if (any && (bet.legs || []).every((l) => pct(l) >= 100)) bet.status = "hit";
-    return any;
+    if (updated && (bet.legs || []).every((leg) => pct(leg) >= 100)) bet.status = "hit";
+    return updated;
   }
   return window.EspnPlayer.refreshPlayer(bet);
 }
 
 $("refreshBtn").addEventListener("click", async () => {
-  if (!window.EspnPlayer) {
-    $("statusLine").textContent = "ESPN helper failed to load (scripts/espn-player.js).";
+  if (!window.EspnPlayer || !window.TeamRecord) {
+    $("statusLine").textContent = "Refresh helpers failed to load.";
     return;
   }
   $("refreshBtn").disabled = true;
   $("statusLine").textContent = "Refreshing ESPN…";
-  let n = 0;
+  let updated = 0;
   const missed = [];
   for (const bet of bets) {
     try {
-      if (await refreshOne(bet)) n += 1;
+      if (await refreshOne(bet)) updated += 1;
       else if (bet.kind !== "award") missed.push(bet.desc || bet.subject || bet.id);
-    } catch (e) {
-      missed.push((bet.desc || bet.id) + "");
+    } catch (error) {
+      missed.push(bet.desc || bet.subject || bet.id);
     }
   }
   render();
   $("refreshBtn").disabled = false;
-  $("statusLine").textContent = `Updated ${n} bet(s).` +
+  $("statusLine").textContent = `Updated ${updated} bet(s).` +
     (missed.length ? ` Still empty: ${missed.slice(0, 8).join("; ")}` : "");
 });
 
