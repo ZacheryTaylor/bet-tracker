@@ -11,7 +11,8 @@
     "stake": 5,
     "payout": 75,
     "notes": "$5 → $75",
-    "status": "open"
+    "status": "open",
+    "user": "Sean"
   },
   {
     "id": "darian-mensah-1st-pick",
@@ -25,7 +26,8 @@
     "stake": 25,
     "payout": 500,
     "notes": "$25 → $500",
-    "status": "open"
+    "status": "open",
+    "user": "Sean"
   },
   {
     "id": "caleb-williams-pass-yds",
@@ -41,8 +43,7 @@
     "payout": 1000.01,
     "notes": "$534.89 → $1000.01",
     "status": "open",
-    "espnAthleteId": "4431611",
-    "lastSync": "2026-09-22T14:56:31.910Z"
+    "user": "Sean"
   },
   {
     "id": "bills-wins",
@@ -58,7 +59,7 @@
     "payout": 100.01,
     "notes": "$58.34 → $100.01",
     "status": "open",
-    "lastSync": "2026-09-22T14:56:32.155Z"
+    "user": "Sean"
   },
   {
     "id": "lions-wins",
@@ -74,7 +75,7 @@
     "payout": 30.8,
     "notes": "$10 → $30.80",
     "status": "open",
-    "lastSync": "2026-09-22T14:56:32.194Z"
+    "user": "Sean"
   },
   {
     "id": "jaxson-dart-rush-yds",
@@ -85,13 +86,12 @@
     "timeline": "season",
     "stat": "rushingYards",
     "target": 451,
-    "current": 54,
+    "current": 56,
     "stake": 50,
     "payout": 91.67,
     "notes": "$50 → $91.67",
     "status": "open",
-    "espnAthleteId": "4689114",
-    "lastSync": "2026-09-22T14:56:32.257Z"
+    "user": "Sean"
   },
   {
     "id": "colston-loveland-rec-yds",
@@ -102,13 +102,12 @@
     "timeline": "season",
     "stat": "receivingYards",
     "target": 751,
-    "current": 3,
+    "current": 0,
     "stake": 10,
     "payout": 18.33,
     "notes": "$10 → $18.33",
     "status": "open",
-    "espnAthleteId": "4723086",
-    "lastSync": "2026-09-22T14:56:32.315Z"
+    "user": "Sean"
   },
   {
     "id": "parlay-shough-dart-brown-lemon",
@@ -120,51 +119,12 @@
     "payout": 246.17,
     "notes": "$20.52 → $246.17",
     "status": "open",
+    "user": "Sean",
     "legs": [
-      {
-        "subject": "Tyler Shough",
-        "stat": "passingTouchdowns",
-        "target": 19,
-        "current": 4,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4360689",
-        "lastSync": "2026-09-22T14:56:32.375Z"
-      },
-      {
-        "subject": "Jaxson Dart",
-        "stat": "rushingYards",
-        "target": 451,
-        "current": 54,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4689114",
-        "lastSync": "2026-09-22T14:56:32.418Z"
-      },
-      {
-        "subject": "Chase Brown",
-        "stat": "rushingYards",
-        "target": 851,
-        "current": 136,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4362238",
-        "lastSync": "2026-09-22T14:56:32.478Z"
-      },
-      {
-        "subject": "Makai Lemon",
-        "stat": "receivingYards",
-        "target": 651,
-        "current": 9,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4870795",
-        "lastSync": "2026-09-22T14:56:32.550Z"
-      }
+      { "subject": "Tyler Shough", "stat": "passingTouchdowns", "target": 19, "current": 3, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Jaxson Dart", "stat": "rushingYards", "target": 451, "current": 54, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Chase Brown", "stat": "rushingYards", "target": 851, "current": 56, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Makai Lemon", "stat": "receivingYards", "target": 651, "current": -5, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" }
     ]
   },
   {
@@ -177,27 +137,10 @@
     "payout": 87.38,
     "notes": "$25 → $87.38",
     "status": "open",
+    "user": "Sean",
     "legs": [
-      {
-        "subject": "Justin Herbert",
-        "stat": "passingYards",
-        "target": 3651,
-        "current": 401,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4038941",
-        "lastSync": "2026-09-22T14:56:32.594Z"
-      },
-      {
-        "subject": "Brock Bowers",
-        "stat": "receivingYards",
-        "target": 876,
-        "current": 0,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop"
-      }
+      { "subject": "Justin Herbert", "stat": "passingYards", "target": 3651, "current": 209, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Brock Bowers", "stat": "receivingYards", "target": 876, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" }
     ]
   },
   {
@@ -210,29 +153,10 @@
     "payout": 37.27,
     "notes": "$10 → $37.27",
     "status": "open",
+    "user": "Sean",
     "legs": [
-      {
-        "subject": "D'Andre Swift",
-        "stat": "rushingYards",
-        "target": 751,
-        "current": 169,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4259545",
-        "lastSync": "2026-09-22T14:56:33.127Z"
-      },
-      {
-        "subject": "DJ Moore",
-        "stat": "receivingYards",
-        "target": 751,
-        "current": 100,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "3915416",
-        "lastSync": "2026-09-22T14:56:33.182Z"
-      }
+      { "subject": "D'Andre Swift", "stat": "rushingYards", "target": 751, "current": 124, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "DJ Moore", "stat": "receivingYards", "target": 751, "current": 100, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" }
     ]
   },
   {
@@ -245,51 +169,12 @@
     "payout": 112.65,
     "notes": "$10 → $112.65",
     "status": "open",
+    "user": "Sean",
     "legs": [
-      {
-        "subject": "Chase Brown",
-        "stat": "rushingYards",
-        "target": 851,
-        "current": 136,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4362238",
-        "lastSync": "2026-09-22T14:56:33.226Z"
-      },
-      {
-        "subject": "Ashton Jeanty",
-        "stat": "rushingTouchdowns",
-        "target": 8,
-        "current": 0,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4890973",
-        "lastSync": "2026-09-22T14:56:33.282Z"
-      },
-      {
-        "subject": "Jeremiyah Love",
-        "stat": "rushingTouchdowns",
-        "target": 6,
-        "current": 1,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4870808",
-        "lastSync": "2026-09-22T14:56:33.345Z"
-      },
-      {
-        "subject": "Kyren Williams",
-        "stat": "rushingYards",
-        "target": 976,
-        "current": 126,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4430737",
-        "lastSync": "2026-09-22T14:56:33.404Z"
-      }
+      { "subject": "Chase Brown", "stat": "rushingYards", "target": 851, "current": 56, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Ashton Jeanty", "stat": "rushingTouchdowns", "target": 8, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Jeremiyah Love", "stat": "rushingTouchdowns", "target": 6, "current": 1, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Kyren Williams", "stat": "rushingYards", "target": 976, "current": 41, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" }
     ]
   },
   {
@@ -302,40 +187,11 @@
     "payout": 333.64,
     "notes": "$50 → $333.64",
     "status": "open",
+    "user": "Sean",
     "legs": [
-      {
-        "subject": "Caleb Williams",
-        "stat": "passingYards",
-        "target": 3651,
-        "current": 407,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4431611",
-        "lastSync": "2026-09-22T14:56:33.447Z"
-      },
-      {
-        "subject": "Jonathan Taylor",
-        "stat": "rushingYards",
-        "target": 1251,
-        "current": 190,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4242335",
-        "lastSync": "2026-09-22T14:56:33.510Z"
-      },
-      {
-        "subject": "DJ Moore",
-        "stat": "receivingYards",
-        "target": 801,
-        "current": 100,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "3915416",
-        "lastSync": "2026-09-22T14:56:33.553Z"
-      }
+      { "subject": "Caleb Williams", "stat": "passingYards", "target": 3651, "current": 269, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Jonathan Taylor", "stat": "rushingYards", "target": 1251, "current": 98, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "DJ Moore", "stat": "receivingYards", "target": 801, "current": 100, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" }
     ]
   },
   {
@@ -348,51 +204,12 @@
     "payout": 164.32,
     "notes": "$10 → $164.32",
     "status": "open",
+    "user": "Sean",
     "legs": [
-      {
-        "subject": "Kyren Williams",
-        "stat": "rushingYards",
-        "target": 976,
-        "current": 126,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4430737",
-        "lastSync": "2026-09-22T14:56:33.596Z"
-      },
-      {
-        "subject": "Chase Brown",
-        "stat": "rushingYards",
-        "target": 851,
-        "current": 136,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4362238",
-        "lastSync": "2026-09-22T14:56:33.639Z"
-      },
-      {
-        "subject": "DJ Moore",
-        "stat": "receivingYards",
-        "target": 801,
-        "current": 100,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "3915416",
-        "lastSync": "2026-09-22T14:56:33.682Z"
-      },
-      {
-        "subject": "Wan'Dale Robinson",
-        "stat": "receivingYards",
-        "target": 701,
-        "current": 47,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4569587",
-        "lastSync": "2026-09-22T14:56:33.747Z"
-      }
+      { "subject": "Kyren Williams", "stat": "rushingYards", "target": 976, "current": 41, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Chase Brown", "stat": "rushingYards", "target": 851, "current": 56, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "DJ Moore", "stat": "receivingYards", "target": 801, "current": 100, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Wan'Dale Robinson", "stat": "receivingYards", "target": 701, "current": 38, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" }
     ]
   },
   {
@@ -405,40 +222,11 @@
     "payout": 68.55,
     "notes": "$10 → $68.55",
     "status": "open",
+    "user": "Sean",
     "legs": [
-      {
-        "subject": "Jacory Croskey-Merritt",
-        "stat": "rushingYards",
-        "target": 601,
-        "current": 106,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4575131",
-        "lastSync": "2026-09-22T14:56:33.810Z"
-      },
-      {
-        "subject": "Kenneth Walker III",
-        "stat": "rushingYards",
-        "target": 926,
-        "current": 290,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4567048",
-        "lastSync": "2026-09-22T14:56:33.871Z"
-      },
-      {
-        "subject": "Javonte Williams",
-        "stat": "rushingYards",
-        "target": 951,
-        "current": 71,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4361579",
-        "lastSync": "2026-09-22T14:56:33.934Z"
-      }
+      { "subject": "Jacory Croskey-Merritt", "stat": "rushingYards", "target": 601, "current": 106, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Kenneth Walker III", "stat": "rushingYards", "target": 926, "current": 290, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Javonte Williams", "stat": "rushingYards", "target": 951, "current": 71, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" }
     ]
   },
   {
@@ -451,51 +239,12 @@
     "payout": 251.69,
     "notes": "$20 → $251.69",
     "status": "open",
+    "user": "Sean",
     "legs": [
-      {
-        "subject": "Sam Darnold",
-        "stat": "passingYards",
-        "target": 3651,
-        "current": 13,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "3912547",
-        "lastSync": "2026-09-22T14:56:33.991Z"
-      },
-      {
-        "subject": "Matthew Stafford",
-        "stat": "passingYards",
-        "target": 3851,
-        "current": 482,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "12483",
-        "lastSync": "2026-09-22T14:56:34.049Z"
-      },
-      {
-        "subject": "Wan'Dale Robinson",
-        "stat": "receivingYards",
-        "target": 701,
-        "current": 47,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4569587",
-        "lastSync": "2026-09-22T14:56:34.091Z"
-      },
-      {
-        "subject": "Jalen Coker",
-        "stat": "receivingYards",
-        "target": 601,
-        "current": 204,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4695883",
-        "lastSync": "2026-09-22T14:56:34.151Z"
-      }
+      { "subject": "Sam Darnold", "stat": "passingYards", "target": 3651, "current": 13, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Matthew Stafford", "stat": "passingYards", "target": 3851, "current": 155, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Wan'Dale Robinson", "stat": "receivingYards", "target": 701, "current": 38, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Jalen Coker", "stat": "receivingYards", "target": 601, "current": 138, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" }
     ]
   },
   {
@@ -508,51 +257,12 @@
     "payout": 131.24,
     "notes": "$10 → $131.24",
     "status": "open",
+    "user": "Sean",
     "legs": [
-      {
-        "subject": "Caleb Williams",
-        "stat": "passingYards",
-        "target": 3651,
-        "current": 407,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4431611",
-        "lastSync": "2026-09-22T14:56:34.193Z"
-      },
-      {
-        "subject": "Bo Nix",
-        "stat": "passingTouchdowns",
-        "target": 25,
-        "current": 2,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4426338",
-        "lastSync": "2026-09-22T14:56:34.255Z"
-      },
-      {
-        "subject": "Javonte Williams",
-        "stat": "rushingYards",
-        "target": 951,
-        "current": 71,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4361579",
-        "lastSync": "2026-09-22T14:56:34.297Z"
-      },
-      {
-        "subject": "Jayden Reed",
-        "stat": "receivingYards",
-        "target": 651,
-        "current": 24,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4362249",
-        "lastSync": "2026-09-22T14:56:34.359Z"
-      }
+      { "subject": "Caleb Williams", "stat": "passingYards", "target": 3651, "current": 269, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Bo Nix", "stat": "passingTouchdowns", "target": 25, "current": 1, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Javonte Williams", "stat": "rushingYards", "target": 951, "current": 41, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Jayden Reed", "stat": "receivingYards", "target": 651, "current": 20, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" }
     ]
   },
   {
@@ -565,73 +275,14 @@
     "payout": 550.2,
     "notes": "$20 → $550.20",
     "status": "open",
+    "user": "Sean",
     "legs": [
-      {
-        "subject": "Javonte Williams",
-        "stat": "rushingYards",
-        "target": 1000,
-        "current": 71,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4361579",
-        "lastSync": "2026-09-22T14:56:34.403Z"
-      },
-      {
-        "subject": "Jaxson Dart",
-        "stat": "rushingTouchdowns",
-        "target": 7,
-        "current": 0,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4689114",
-        "lastSync": "2026-09-22T14:56:34.445Z"
-      },
-      {
-        "subject": "Tyler Warren",
-        "stat": "receivingYards",
-        "target": 775,
-        "current": 34,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4431459",
-        "lastSync": "2026-09-22T14:56:34.515Z"
-      },
-      {
-        "subject": "Kyren Williams",
-        "stat": "rushingYards",
-        "target": 1000,
-        "current": 126,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4430737",
-        "lastSync": "2026-09-22T14:56:34.557Z"
-      },
-      {
-        "subject": "Bo Nix",
-        "stat": "passingYards",
-        "target": 3500,
-        "current": 419,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4426338",
-        "lastSync": "2026-09-22T14:56:34.601Z"
-      },
-      {
-        "subject": "Chase Brown",
-        "stat": "rushingYards",
-        "target": 826,
-        "current": 136,
-        "sport": "nfl",
-        "timeline": "season",
-        "kind": "player-prop",
-        "espnAthleteId": "4362238",
-        "lastSync": "2026-09-22T14:56:34.643Z"
-      }
+      { "subject": "Javonte Williams", "stat": "rushingYards", "target": 1000, "current": 41, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Jaxson Dart", "stat": "rushingTouchdowns", "target": 7, "current": 0, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Tyler Warren", "stat": "receivingYards", "target": 775, "current": 13, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Kyren Williams", "stat": "rushingYards", "target": 1000, "current": 41, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Bo Nix", "stat": "passingYards", "target": 3500, "current": 131, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" },
+      { "subject": "Chase Brown", "stat": "rushingYards", "target": 826, "current": 56, "sport": "nfl", "timeline": "season", "kind": "player-prop", "user": "Sean" }
     ]
   }
 ]
