@@ -47,7 +47,7 @@
     "espnAthleteId": "4431611",
     "espnTeamId": "28",
     "teamGamesPlayed": 2,
-    "lastSync": "2026-09-26T13:07:41.384Z"
+    "lastSync": "2026-09-26T17:12:07.381Z"
   },
   {
     "id": "bills-wins",
@@ -66,7 +66,7 @@
     "user": "Sean",
     "ties": 0,
     "teamGamesPlayed": 2,
-    "lastSync": "2026-09-26T13:07:41.468Z"
+    "lastSync": "2026-09-26T17:12:07.414Z"
   },
   {
     "id": "lions-wins",
@@ -85,7 +85,7 @@
     "user": "Sean",
     "ties": 0,
     "teamGamesPlayed": 2,
-    "lastSync": "2026-09-26T13:07:41.489Z"
+    "lastSync": "2026-09-26T17:12:07.439Z"
   },
   {
     "id": "jaxson-dart-rush-yds",
@@ -104,7 +104,7 @@
     "user": "Sean",
     "espnAthleteId": "4689114",
     "espnTeamId": "19",
-    "lastSync": "2026-09-26T13:07:41.771Z",
+    "lastSync": "2026-09-26T17:12:07.863Z",
     "teamGamesPlayed": 2
   },
   {
@@ -124,7 +124,7 @@
     "user": "Sean",
     "espnAthleteId": "4723086",
     "espnTeamId": "3080",
-    "lastSync": "2026-09-26T13:07:42.092Z"
+    "lastSync": "2026-09-26T17:12:08.273Z"
   },
   {
     "id": "parlay-shough-dart-brown-lemon",
@@ -149,7 +149,7 @@
         "user": "Sean",
         "espnAthleteId": "4360689",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:42.432Z"
+        "lastSync": "2026-09-26T17:12:08.549Z"
       },
       {
         "subject": "Jaxson Dart",
@@ -162,7 +162,7 @@
         "user": "Sean",
         "espnAthleteId": "4689114",
         "espnTeamId": "19",
-        "lastSync": "2026-09-26T13:07:42.632Z",
+        "lastSync": "2026-09-26T17:12:08.735Z",
         "teamGamesPlayed": 2
       },
       {
@@ -177,7 +177,7 @@
         "espnAthleteId": "4362238",
         "espnTeamId": "28",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:42.829Z"
+        "lastSync": "2026-09-26T17:12:08.922Z"
       },
       {
         "subject": "Makai Lemon",
@@ -191,7 +191,7 @@
         "espnAthleteId": "4870795",
         "espnTeamId": "28",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:43.023Z"
+        "lastSync": "2026-09-26T17:12:09.116Z"
       }
     ]
   },
@@ -219,7 +219,7 @@
         "espnAthleteId": "4038941",
         "espnTeamId": "24",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:43.304Z"
+        "lastSync": "2026-09-26T17:12:09.410Z"
       },
       {
         "subject": "Brock Bowers",
@@ -256,7 +256,7 @@
         "user": "Sean",
         "espnAthleteId": "4259545",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:43.796Z"
+        "lastSync": "2026-09-26T17:12:09.905Z"
       },
       {
         "subject": "DJ Moore",
@@ -270,7 +270,7 @@
         "espnAthleteId": "3915416",
         "espnTeamId": "2",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:44.065Z"
+        "lastSync": "2026-09-26T17:12:10.283Z"
       }
     ]
   },
@@ -298,7 +298,7 @@
         "espnAthleteId": "4362238",
         "espnTeamId": "28",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:44.256Z"
+        "lastSync": "2026-09-26T17:12:10.473Z"
       },
       {
         "subject": "Ashton Jeanty",
@@ -311,7 +311,7 @@
         "user": "Sean",
         "espnAthleteId": "4890973",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:44.517Z"
+        "lastSync": "2026-09-26T17:12:10.747Z"
       },
       {
         "subject": "Jeremiyah Love",
@@ -324,7 +324,7 @@
         "user": "Sean",
         "espnAthleteId": "4870808",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:44.784Z"
+        "lastSync": "2026-09-26T17:12:11.027Z"
       },
       {
         "subject": "Kyren Williams",
@@ -337,7 +337,7 @@
         "user": "Sean",
         "espnAthleteId": "4430737",
         "espnTeamId": "28",
-        "lastSync": "2026-09-26T13:07:44.976Z",
+        "lastSync": "2026-09-26T17:12:11.213Z",
         "teamGamesPlayed": 2
       }
     ]
@@ -366,7 +366,7 @@
         "espnAthleteId": "4431611",
         "espnTeamId": "28",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:45.169Z"
+        "lastSync": "2026-09-26T17:12:11.401Z"
       },
       {
         "subject": "Jonathan Taylor",
@@ -380,7 +380,7 @@
         "espnAthleteId": "4242335",
         "espnTeamId": "3080",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:45.438Z"
+        "lastSync": "2026-09-26T17:12:11.681Z"
       },
       {
         "subject": "DJ Moore",
@@ -394,7 +394,7 @@
         "espnAthleteId": "3915416",
         "espnTeamId": "2",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:45.631Z"
+        "lastSync": "2026-09-26T17:12:11.871Z"
       }
     ]
   },
@@ -421,7 +421,7 @@
         "user": "Sean",
         "espnAthleteId": "4430737",
         "espnTeamId": "28",
-        "lastSync": "2026-09-26T13:07:45.823Z",
+        "lastSync": "2026-09-26T17:12:12.066Z",
         "teamGamesPlayed": 2
       },
       {
@@ -436,7 +436,7 @@
         "espnAthleteId": "4362238",
         "espnTeamId": "28",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:46.026Z"
+        "lastSync": "2026-09-26T17:12:12.250Z"
       },
       {
         "subject": "DJ Moore",
@@ -450,7 +450,7 @@
         "espnAthleteId": "3915416",
         "espnTeamId": "2",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:46.217Z"
+        "lastSync": "2026-09-26T17:12:12.436Z"
       },
       {
         "subject": "Wan'Dale Robinson",
@@ -463,7 +463,7 @@
         "user": "Sean",
         "espnAthleteId": "4569587",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:46.485Z"
+        "lastSync": "2026-09-26T17:12:12.712Z"
       }
     ]
   },
@@ -490,7 +490,7 @@
         "user": "Sean",
         "espnAthleteId": "4575131",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:46.757Z"
+        "lastSync": "2026-09-26T17:12:13.009Z"
       },
       {
         "subject": "Kenneth Walker III",
@@ -503,7 +503,7 @@
         "user": "Sean",
         "espnAthleteId": "4567048",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:47.023Z"
+        "lastSync": "2026-09-26T17:12:13.285Z"
       },
       {
         "subject": "Javonte Williams",
@@ -516,7 +516,7 @@
         "user": "Sean",
         "espnAthleteId": "4361579",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:47.283Z"
+        "lastSync": "2026-09-26T17:12:13.571Z"
       }
     ]
   },
@@ -544,7 +544,7 @@
         "espnAthleteId": "3912547",
         "espnTeamId": "28",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:47.475Z"
+        "lastSync": "2026-09-26T17:12:13.757Z"
       },
       {
         "subject": "Matthew Stafford",
@@ -557,7 +557,7 @@
         "user": "Sean",
         "espnAthleteId": "12483",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:47.744Z"
+        "lastSync": "2026-09-26T17:12:14.033Z"
       },
       {
         "subject": "Wan'Dale Robinson",
@@ -570,7 +570,7 @@
         "user": "Sean",
         "espnAthleteId": "4569587",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:48.006Z"
+        "lastSync": "2026-09-26T17:12:14.328Z"
       },
       {
         "subject": "Jalen Coker",
@@ -583,7 +583,7 @@
         "user": "Sean",
         "espnAthleteId": "4695883",
         "espnTeamId": "29",
-        "lastSync": "2026-09-26T13:07:48.276Z",
+        "lastSync": "2026-09-26T17:12:14.608Z",
         "teamGamesPlayed": 2
       }
     ]
@@ -612,7 +612,7 @@
         "espnAthleteId": "4431611",
         "espnTeamId": "28",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:48.469Z"
+        "lastSync": "2026-09-26T17:12:14.793Z"
       },
       {
         "subject": "Bo Nix",
@@ -626,7 +626,7 @@
         "espnAthleteId": "4426338",
         "espnTeamId": "28",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:48.661Z"
+        "lastSync": "2026-09-26T17:12:14.980Z"
       },
       {
         "subject": "Javonte Williams",
@@ -639,7 +639,7 @@
         "user": "Sean",
         "espnAthleteId": "4361579",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:48.925Z"
+        "lastSync": "2026-09-26T17:12:15.283Z"
       },
       {
         "subject": "Jayden Reed",
@@ -653,7 +653,7 @@
         "espnAthleteId": "4362249",
         "espnTeamId": "28",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:49.139Z"
+        "lastSync": "2026-09-26T17:12:15.467Z"
       }
     ]
   },
@@ -680,7 +680,7 @@
         "user": "Sean",
         "espnAthleteId": "4361579",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:49.401Z"
+        "lastSync": "2026-09-26T17:12:15.744Z"
       },
       {
         "subject": "Jaxson Dart",
@@ -693,7 +693,7 @@
         "user": "Sean",
         "espnAthleteId": "4689114",
         "espnTeamId": "19",
-        "lastSync": "2026-09-26T13:07:49.596Z",
+        "lastSync": "2026-09-26T17:12:15.930Z",
         "teamGamesPlayed": 2
       },
       {
@@ -708,7 +708,7 @@
         "espnAthleteId": "4431459",
         "espnTeamId": "28",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:49.785Z"
+        "lastSync": "2026-09-26T17:12:16.118Z"
       },
       {
         "subject": "Kyren Williams",
@@ -721,7 +721,7 @@
         "user": "Sean",
         "espnAthleteId": "4430737",
         "espnTeamId": "28",
-        "lastSync": "2026-09-26T13:07:49.980Z",
+        "lastSync": "2026-09-26T17:12:16.309Z",
         "teamGamesPlayed": 2
       },
       {
@@ -736,7 +736,7 @@
         "espnAthleteId": "4426338",
         "espnTeamId": "28",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:50.172Z"
+        "lastSync": "2026-09-26T17:12:16.504Z"
       },
       {
         "subject": "Chase Brown",
@@ -750,7 +750,7 @@
         "espnAthleteId": "4362238",
         "espnTeamId": "28",
         "teamGamesPlayed": 2,
-        "lastSync": "2026-09-26T13:07:50.365Z"
+        "lastSync": "2026-09-26T17:12:16.689Z"
       }
     ]
   },
@@ -900,7 +900,7 @@
     "user": "Zach",
     "ties": 0,
     "teamGamesPlayed": 2,
-    "lastSync": "2026-09-26T13:07:50.412Z"
+    "lastSync": "2026-09-26T17:12:16.774Z"
   },
   {
     "id": "zach-justin-herbert-mvp",
@@ -937,7 +937,7 @@
     "espnAthleteId": "4431611",
     "espnTeamId": "28",
     "teamGamesPlayed": 2,
-    "lastSync": "2026-09-26T13:07:50.604Z"
+    "lastSync": "2026-09-26T17:12:16.961Z"
   },
   {
     "id": "zach-dart-jeanty-rush-parlay",
@@ -963,7 +963,7 @@
         "user": "Zach",
         "espnAthleteId": "4689114",
         "espnTeamId": "19",
-        "lastSync": "2026-09-26T13:07:50.797Z",
+        "lastSync": "2026-09-26T17:12:17.176Z",
         "teamGamesPlayed": 2
       },
       {
@@ -977,7 +977,7 @@
         "user": "Zach",
         "espnAthleteId": "4890973",
         "espnTeamId": "3080",
-        "lastSync": "2026-09-26T13:07:51.066Z"
+        "lastSync": "2026-09-26T17:12:17.445Z"
       }
     ]
   }
