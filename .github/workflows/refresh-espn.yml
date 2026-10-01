@@ -3,6 +3,9 @@ on:
   schedule:
     - cron: "20 * * * *"
   workflow_dispatch:
+concurrency:
+  group: refresh-espn
+  cancel-in-progress: false
 jobs:
   refresh:
     # Only ever runs in the live repo; in forks/staging copies this job is skipped.
@@ -17,9 +20,19 @@ jobs:
           node-version: "20"
       - run: node scripts/refresh-espn.js
       - name: Commit updated stats
+        # If a bet was saved from the site while this ran, the push is rejected (never forced):
+        # reset to the newest commit, re-run the refresh on top of it, and try again.
         run: |
           git config user.name "bet-tracker-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/bets.json
-          git diff --cached --quiet || git commit -m "Refresh ESPN stats"
-          git push
+          for attempt in 1 2 3; do
+            git add data/bets.json
+            if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+            git commit -m "Refresh ESPN stats"
+            if git push; then exit 0; fi
+            echo "Push rejected (attempt $attempt); rebuilding on the latest main"
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/refresh-espn.js
+          done
+          exit 1
