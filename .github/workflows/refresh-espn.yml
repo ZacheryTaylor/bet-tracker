@@ -5,6 +5,8 @@ on:
   workflow_dispatch:
 jobs:
   refresh:
+    # Only ever runs in the live repo; in forks/staging copies this job is skipped.
+    if: github.repository == 'ZacheryTaylor/bet-tracker'
     runs-on: ubuntu-latest
     permissions:
       contents: write
