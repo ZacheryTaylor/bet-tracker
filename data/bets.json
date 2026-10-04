@@ -47,7 +47,7 @@
     "espnAthleteId": "4431611",
     "espnTeamId": "3",
     "teamGamesPlayed": 3,
-    "lastSync": "2026-10-04T15:23:44.255Z"
+    "lastSync": "2026-10-04T19:39:38.417Z"
   },
   {
     "id": "bills-wins",
@@ -66,7 +66,7 @@
     "user": "Sean",
     "ties": 0,
     "teamGamesPlayed": 3,
-    "lastSync": "2026-10-04T15:23:44.312Z"
+    "lastSync": "2026-10-04T19:39:38.465Z"
   },
   {
     "id": "lions-wins",
@@ -85,7 +85,7 @@
     "user": "Sean",
     "ties": 0,
     "teamGamesPlayed": 3,
-    "lastSync": "2026-10-04T15:23:44.352Z"
+    "lastSync": "2026-10-04T19:39:38.495Z"
   },
   {
     "id": "jaxson-dart-rush-yds",
@@ -104,7 +104,7 @@
     "user": "Sean",
     "espnAthleteId": "4689114",
     "espnTeamId": "19",
-    "lastSync": "2026-10-04T15:23:44.893Z",
+    "lastSync": "2026-10-04T19:39:38.773Z",
     "teamGamesPlayed": 3
   },
   {
@@ -116,7 +116,7 @@
     "timeline": "season",
     "stat": "receivingYards",
     "target": 751,
-    "current": 34,
+    "current": 27,
     "stake": 10,
     "payout": 18.33,
     "notes": "$10 → $18.33",
@@ -124,7 +124,7 @@
     "user": "Sean",
     "espnAthleteId": "4723086",
     "espnTeamId": "3",
-    "lastSync": "2026-10-04T15:23:44.987Z",
+    "lastSync": "2026-10-04T19:39:39.000Z",
     "teamGamesPlayed": 3
   },
   {
@@ -150,7 +150,7 @@
         "user": "Sean",
         "espnAthleteId": "4360689",
         "espnTeamId": "18",
-        "lastSync": "2026-10-04T15:23:45.127Z",
+        "lastSync": "2026-10-04T19:39:39.313Z",
         "teamGamesPlayed": 3
       },
       {
@@ -164,14 +164,14 @@
         "user": "Sean",
         "espnAthleteId": "4689114",
         "espnTeamId": "19",
-        "lastSync": "2026-10-04T15:23:45.196Z",
+        "lastSync": "2026-10-04T19:39:39.462Z",
         "teamGamesPlayed": 3
       },
       {
         "subject": "Chase Brown",
         "stat": "rushingYards",
         "target": 851,
-        "current": 197,
+        "current": 9,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
@@ -179,13 +179,13 @@
         "espnAthleteId": "4362238",
         "espnTeamId": "4",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:45.267Z"
+        "lastSync": "2026-10-04T19:39:39.766Z"
       },
       {
         "subject": "Makai Lemon",
         "stat": "receivingYards",
         "target": 651,
-        "current": 38,
+        "current": 27,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
@@ -193,7 +193,7 @@
         "espnAthleteId": "4870795",
         "espnTeamId": "21",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:45.509Z"
+        "lastSync": "2026-10-04T19:39:40.118Z"
       }
     ]
   },
@@ -221,7 +221,7 @@
         "espnAthleteId": "4038941",
         "espnTeamId": "24",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:45.778Z"
+        "lastSync": "2026-10-04T19:39:40.509Z"
       },
       {
         "subject": "Brock Bowers",
@@ -234,7 +234,7 @@
         "user": "Sean",
         "espnAthleteId": "4432665",
         "espnTeamId": "13",
-        "lastSync": "2026-10-04T15:23:46.101Z",
+        "lastSync": "2026-10-04T19:39:40.768Z",
         "teamGamesPlayed": 3
       }
     ]
@@ -255,21 +255,21 @@
         "subject": "D'Andre Swift",
         "stat": "rushingYards",
         "target": 751,
-        "current": 253,
+        "current": 54,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4259545",
         "espnTeamId": "3",
-        "lastSync": "2026-10-04T15:23:46.381Z",
+        "lastSync": "2026-10-04T19:39:41.025Z",
         "teamGamesPlayed": 3
       },
       {
         "subject": "DJ Moore",
         "stat": "receivingYards",
         "target": 751,
-        "current": 167,
+        "current": 11,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
@@ -277,7 +277,7 @@
         "espnAthleteId": "3915416",
         "espnTeamId": "2",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:46.506Z"
+        "lastSync": "2026-10-04T19:39:41.349Z"
       }
     ]
   },
@@ -297,7 +297,7 @@
         "subject": "Chase Brown",
         "stat": "rushingYards",
         "target": 851,
-        "current": 197,
+        "current": 9,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
@@ -305,7 +305,7 @@
         "espnAthleteId": "4362238",
         "espnTeamId": "4",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:46.615Z"
+        "lastSync": "2026-10-04T19:39:41.499Z"
       },
       {
         "subject": "Ashton Jeanty",
@@ -318,35 +318,35 @@
         "user": "Sean",
         "espnAthleteId": "4890973",
         "espnTeamId": "13",
-        "lastSync": "2026-10-04T15:23:46.697Z",
+        "lastSync": "2026-10-04T19:39:41.712Z",
         "teamGamesPlayed": 3
       },
       {
         "subject": "Jeremiyah Love",
         "stat": "rushingTouchdowns",
         "target": 6,
-        "current": 1,
+        "current": 0,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4870808",
         "espnTeamId": "22",
-        "lastSync": "2026-10-04T15:23:46.912Z",
+        "lastSync": "2026-10-04T19:39:42.051Z",
         "teamGamesPlayed": 3
       },
       {
         "subject": "Kyren Williams",
         "stat": "rushingYards",
         "target": 976,
-        "current": 214,
+        "current": 60,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4430737",
         "espnTeamId": "14",
-        "lastSync": "2026-10-04T15:23:47.004Z",
+        "lastSync": "2026-10-04T19:39:42.372Z",
         "teamGamesPlayed": 3
       }
     ]
@@ -375,27 +375,27 @@
         "espnAthleteId": "4431611",
         "espnTeamId": "3",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:47.065Z"
+        "lastSync": "2026-10-04T19:39:42.500Z"
       },
       {
         "subject": "Jonathan Taylor",
         "stat": "rushingYards",
         "target": 1251,
-        "current": 36,
+        "current": 95,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4242335",
         "espnTeamId": "11",
-        "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:47.221Z"
+        "teamGamesPlayed": 4,
+        "lastSync": "2026-10-04T19:39:42.821Z"
       },
       {
         "subject": "DJ Moore",
         "stat": "receivingYards",
         "target": 801,
-        "current": 167,
+        "current": 11,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
@@ -403,7 +403,7 @@
         "espnAthleteId": "3915416",
         "espnTeamId": "2",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:47.313Z"
+        "lastSync": "2026-10-04T19:39:42.976Z"
       }
     ]
   },
@@ -423,21 +423,21 @@
         "subject": "Kyren Williams",
         "stat": "rushingYards",
         "target": 976,
-        "current": 214,
+        "current": 68,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4430737",
         "espnTeamId": "14",
-        "lastSync": "2026-10-04T15:23:47.395Z",
+        "lastSync": "2026-10-04T19:39:43.116Z",
         "teamGamesPlayed": 3
       },
       {
         "subject": "Chase Brown",
         "stat": "rushingYards",
         "target": 851,
-        "current": 197,
+        "current": 9,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
@@ -445,13 +445,13 @@
         "espnAthleteId": "4362238",
         "espnTeamId": "4",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:47.452Z"
+        "lastSync": "2026-10-04T19:39:43.275Z"
       },
       {
         "subject": "DJ Moore",
         "stat": "receivingYards",
         "target": 801,
-        "current": 167,
+        "current": 11,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
@@ -459,20 +459,20 @@
         "espnAthleteId": "3915416",
         "espnTeamId": "2",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:47.519Z"
+        "lastSync": "2026-10-04T19:39:43.422Z"
       },
       {
         "subject": "Wan'Dale Robinson",
         "stat": "receivingYards",
         "target": 701,
-        "current": 104,
+        "current": 12,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4569587",
         "espnTeamId": "10",
-        "lastSync": "2026-10-04T15:23:47.661Z",
+        "lastSync": "2026-10-04T19:39:43.736Z",
         "teamGamesPlayed": 3
       }
     ]
@@ -493,15 +493,15 @@
         "subject": "Jacory Croskey-Merritt",
         "stat": "rushingYards",
         "target": 601,
-        "current": 9,
+        "current": 15,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4575131",
         "espnTeamId": "28",
-        "lastSync": "2026-10-04T15:23:47.784Z",
-        "teamGamesPlayed": 3
+        "lastSync": "2026-10-04T19:39:44.015Z",
+        "teamGamesPlayed": 4
       },
       {
         "subject": "Kenneth Walker III",
@@ -514,21 +514,21 @@
         "user": "Sean",
         "espnAthleteId": "4567048",
         "espnTeamId": "12",
-        "lastSync": "2026-10-04T15:23:47.914Z",
+        "lastSync": "2026-10-04T19:39:44.320Z",
         "teamGamesPlayed": 3
       },
       {
         "subject": "Javonte Williams",
         "stat": "rushingYards",
         "target": 951,
-        "current": 169,
+        "current": 60,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4361579",
         "espnTeamId": "6",
-        "lastSync": "2026-10-04T15:23:48.044Z",
+        "lastSync": "2026-10-04T19:39:44.624Z",
         "teamGamesPlayed": 3
       }
     ]
@@ -557,34 +557,34 @@
         "espnAthleteId": "3912547",
         "espnTeamId": "26",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:48.180Z"
+        "lastSync": "2026-10-04T19:39:44.958Z"
       },
       {
         "subject": "Matthew Stafford",
         "stat": "passingYards",
         "target": 3851,
-        "current": 872,
+        "current": 168,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "12483",
         "espnTeamId": "14",
-        "lastSync": "2026-10-04T15:23:48.240Z",
+        "lastSync": "2026-10-04T19:39:45.348Z",
         "teamGamesPlayed": 3
       },
       {
         "subject": "Wan'Dale Robinson",
         "stat": "receivingYards",
         "target": 701,
-        "current": 104,
+        "current": 12,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4569587",
         "espnTeamId": "10",
-        "lastSync": "2026-10-04T15:23:48.332Z",
+        "lastSync": "2026-10-04T19:39:45.484Z",
         "teamGamesPlayed": 3
       },
       {
@@ -598,7 +598,7 @@
         "user": "Sean",
         "espnAthleteId": "4695883",
         "espnTeamId": "29",
-        "lastSync": "2026-10-04T15:23:48.581Z",
+        "lastSync": "2026-10-04T19:39:45.845Z",
         "teamGamesPlayed": 3
       }
     ]
@@ -627,7 +627,7 @@
         "espnAthleteId": "4431611",
         "espnTeamId": "3",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:48.646Z"
+        "lastSync": "2026-10-04T19:39:45.980Z"
       },
       {
         "subject": "Bo Nix",
@@ -641,20 +641,20 @@
         "espnAthleteId": "4426338",
         "espnTeamId": "7",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:48.775Z"
+        "lastSync": "2026-10-04T19:39:46.282Z"
       },
       {
         "subject": "Javonte Williams",
         "stat": "rushingYards",
         "target": 951,
-        "current": 169,
+        "current": 60,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4361579",
         "espnTeamId": "6",
-        "lastSync": "2026-10-04T15:23:48.837Z",
+        "lastSync": "2026-10-04T19:39:46.419Z",
         "teamGamesPlayed": 3
       },
       {
@@ -669,7 +669,7 @@
         "espnAthleteId": "4362249",
         "espnTeamId": "9",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:48.929Z"
+        "lastSync": "2026-10-04T19:39:46.789Z"
       }
     ]
   },
@@ -689,14 +689,14 @@
         "subject": "Javonte Williams",
         "stat": "rushingYards",
         "target": 1000,
-        "current": 169,
+        "current": 60,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4361579",
         "espnTeamId": "6",
-        "lastSync": "2026-10-04T15:23:49.003Z",
+        "lastSync": "2026-10-04T19:39:46.936Z",
         "teamGamesPlayed": 3
       },
       {
@@ -710,35 +710,35 @@
         "user": "Sean",
         "espnAthleteId": "4689114",
         "espnTeamId": "19",
-        "lastSync": "2026-10-04T15:23:49.059Z",
+        "lastSync": "2026-10-04T19:39:47.066Z",
         "teamGamesPlayed": 3
       },
       {
         "subject": "Tyler Warren",
         "stat": "receivingYards",
         "target": 775,
-        "current": 21,
+        "current": 41,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4431459",
         "espnTeamId": "11",
-        "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:49.122Z"
+        "teamGamesPlayed": 4,
+        "lastSync": "2026-10-04T19:39:47.267Z"
       },
       {
         "subject": "Kyren Williams",
         "stat": "rushingYards",
         "target": 1000,
-        "current": 214,
+        "current": 68,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
         "user": "Sean",
         "espnAthleteId": "4430737",
         "espnTeamId": "14",
-        "lastSync": "2026-10-04T15:23:49.180Z",
+        "lastSync": "2026-10-04T19:39:47.399Z",
         "teamGamesPlayed": 3
       },
       {
@@ -753,13 +753,13 @@
         "espnAthleteId": "4426338",
         "espnTeamId": "7",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:49.239Z"
+        "lastSync": "2026-10-04T19:39:47.553Z"
       },
       {
         "subject": "Chase Brown",
         "stat": "rushingYards",
         "target": 826,
-        "current": 197,
+        "current": 9,
         "sport": "nfl",
         "timeline": "season",
         "kind": "player-prop",
@@ -767,7 +767,7 @@
         "espnAthleteId": "4362238",
         "espnTeamId": "4",
         "teamGamesPlayed": 3,
-        "lastSync": "2026-10-04T15:23:49.294Z"
+        "lastSync": "2026-10-04T19:39:47.692Z"
       }
     ]
   },
@@ -917,7 +917,7 @@
     "user": "Zach",
     "ties": 0,
     "teamGamesPlayed": 3,
-    "lastSync": "2026-10-04T15:23:49.363Z"
+    "lastSync": "2026-10-04T19:39:47.764Z"
   },
   {
     "id": "zach-justin-herbert-mvp",
@@ -954,7 +954,7 @@
     "espnAthleteId": "4431611",
     "espnTeamId": "3",
     "teamGamesPlayed": 3,
-    "lastSync": "2026-10-04T15:23:49.434Z"
+    "lastSync": "2026-10-04T19:39:47.909Z"
   },
   {
     "id": "zach-dart-jeanty-rush-parlay",
@@ -980,7 +980,7 @@
         "user": "Zach",
         "espnAthleteId": "4689114",
         "espnTeamId": "19",
-        "lastSync": "2026-10-04T15:23:49.503Z",
+        "lastSync": "2026-10-04T19:39:48.042Z",
         "teamGamesPlayed": 3
       },
       {
@@ -994,7 +994,7 @@
         "user": "Zach",
         "espnAthleteId": "4890973",
         "espnTeamId": "13",
-        "lastSync": "2026-10-04T15:23:49.569Z",
+        "lastSync": "2026-10-04T19:39:48.185Z",
         "teamGamesPlayed": 3
       }
     ]
